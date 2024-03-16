@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 int main() {
-    printf("Hello, World!\n");
-    return 0;
+    
+
+    //Q1 calculate the yearly averages for each year between 1760 and 2015 (One avrg per year)
+    
 }
