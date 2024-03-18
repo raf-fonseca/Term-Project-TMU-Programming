@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 
 //ksdhjf jkasdhf kh sdfa jthe nekjasdf the new stuff
-=======
 //Testing 123ut128312y31897187
 // ksdhjf jkasdhf kh sdfa jthe nekjasdf the new stuff
->>>>>>> b033a7853d68a4eccc48c28394d0340222624293
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,6 +19,8 @@ void readData() {
    char str[100000];
    char date[30];
    double avgtemp;
+   double avgyeartemp;
+   int counter = 0;
 
    char *sp; // this allows for assignment, which we cant do with str[100000]
 
@@ -45,6 +44,16 @@ void readData() {
     avgtemp = atof(sp); // convert the string to a float
     
     printf("\n%s %lf", date, avgtemp);
+
+    // adds average temp to yearly avg temp for 12 consecutive entries, counter and yearly avg temp resets after 12 entries
+    avgyeartemp += avgtemp;
+    counter++;
+    if (counter == 12) {
+        printf("\n\nthe year is %d and avg year temp is %lf\n\n", year, avgyeartemp / 12);
+        counter = 0;
+        avgyeartemp = 0;
+    }
+
 
    }
    fclose(fp);

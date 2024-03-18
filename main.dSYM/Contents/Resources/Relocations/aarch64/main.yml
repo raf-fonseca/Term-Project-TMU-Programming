@@ -1,0 +1,8 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/anshulkrishnakumar/Desktop/Term-Project-TMU-Programming/main'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _readData, symObjAddr: 0x0, symBinAddr: 0x100003D88, symSize: 0x15C }
+  - { offsetInCU: 0x42, offset: 0x42, size: 0x8, addend: 0x0, symName: _readData, symObjAddr: 0x0, symBinAddr: 0x100003D88, symSize: 0x15C }
+  - { offsetInCU: 0xBB, offset: 0xBB, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x15C, symBinAddr: 0x100003EE4, symSize: 0x2C }
+...
