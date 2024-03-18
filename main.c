@@ -1,17 +1,21 @@
+<<<<<<< HEAD
+
+//ksdhjf jkasdhf kh sdfa jthe nekjasdf the new stuff
+=======
 //Testing 123ut128312y31897187
 // ksdhjf jkasdhf kh sdfa jthe nekjasdf the new stuff
+>>>>>>> b033a7853d68a4eccc48c28394d0340222624293
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#define ROWS 3200
-#define COLS 11
+// #define ROWS 3200
+// #define COLS 11
 
 
-char data[ROWS][COLS];
-char LandAvrgTemp[ROWS];
-char dates[ROWS];
-
+// char data[ROWS][COLS];
+// char LandAvrgTemp[ROWS];
+// char dates[ROWS];
 
 void readData() {
     FILE *fp = fopen("GlobalTemperatures.csv" , "r");
