@@ -1,3 +1,5 @@
+//anshul was here her her 
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -9,7 +11,6 @@
 // char data[ROWS][COLS];
 // char LandAvrgTemp[ROWS];
 // char dates[ROWS];
-
 
 void readData() {
     FILE *fp = fopen("GlobalTemperatures.csv" , "r");
