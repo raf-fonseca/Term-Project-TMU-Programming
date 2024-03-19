@@ -92,9 +92,13 @@ void printArrays()
         // printf("Land and Ocean Average Temperature: %f\n", loat[i]);
     }
 }
+
+void q1()
+{
+    // Q1 calculate the yearly averages for each year between 1760 and 2015
+}
 int main(void)
 {
-    // Q1  calculate the yearly averages for each year between 1760 and 2015
     assignArrays();
     printArrays();
     return (0);
