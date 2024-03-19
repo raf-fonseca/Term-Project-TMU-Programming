@@ -90,7 +90,6 @@ void printArrays()
         // printf("Land Min Temperature: %f\n", lmit[i]);
         // printf("Land Min Temperature Uncertainty: %f\n", lmitu[i]);
         // printf("Land and Ocean Average Temperature: %f\n", loat[i]);
-        // printf("Land and Ocean Average Temperature Uncertainty: %f\n", loatu[i]);
     }
 }
 int main(void)
