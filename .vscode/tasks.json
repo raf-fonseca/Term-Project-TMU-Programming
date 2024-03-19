@@ -2,11 +2,18 @@
     "tasks": [
         {
             "type": "cppbuild",
+<<<<<<< HEAD
             "label": "C/C++: clang build active file",
             "command": "/usr/bin/clang",
             "args": [
                 "-fcolor-diagnostics",
                 "-fansi-escape-codes",
+=======
+            "label": "C/C++: g++ build active file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+>>>>>>> 85d407f5229ee2182057e00b48f1848349a6309a
                 "-g",
                 "${file}",
                 "-o",

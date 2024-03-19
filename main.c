@@ -1,67 +1,125 @@
 
-//ksdhjf jkasdhf kh sdfa jthe nekjasdf the new stuff
-//Testing 123ut128312y31897187
-// ksdhjf jkasdhf kh sdfa jthe nekjasdf the new stuff
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-// #define ROWS 3200
-// #define COLS 11
+#define ROWS 3192
+#define COLS 11
 
+// Declare the arrays to store the data
+char dates[ROWS][COLS];
+double LandAvrgTemp[ROWS];
+double LandAvrgTempUncertainty[ROWS];
+double LandMaxTemp[ROWS];
+double LandMaxTempUncertainty[ROWS];
+double LandMinTemp[ROWS];
+double LandMinTempUncertainty[ROWS];
+double LandAndOceanAvrgTemp[ROWS];
+double LandAndOceanAvrgTempUncertainty[ROWS];
+double YearlyLandAvrgTemp[ROWS];
 
-// char data[ROWS][COLS];
-// char LandAvrgTemp[ROWS];
-// char dates[ROWS];
-
-void readData() {
-    FILE *fp = fopen("GlobalTemperatures.csv" , "r");
-   char str[100000];
-   char date[30];
-   double avgtemp;
-   double avgyeartemp;
-   int counter = 0;
-
-   char *sp; // this allows for assignment, which we cant do with str[100000]
-
-   // Read and discard the first line
-   fgets(str, 100000, fp);
-
-   while (fgets(str, 100000, fp) != NULL) {
-    sp = strtok(str, ","); // start at the beginning of str and stop at the "," string and assign it to our string pointer
-    strcpy(date, sp); // copy the above string into date[30]
-    
-    // Parse the year from the date
-    int year = atoi(date);
-
-    // If the year is less than 1760, skip this iteration
-    if (year < 1760) {
-        continue;
+void assignArrays()
+{
+    FILE *fp = fopen("GlobalTemperatures.csv", "r");
+    if (fp == NULL)
+    {
+        printf("Failed to open file.\n");
+        return;
     }
 
-    sp = strtok(NULL, ","); //pick up where you left off 
+    char line[1000]; // Line for every row
 
-    avgtemp = atof(sp); // convert the string to a float
-    
-    printf("\n%s %lf", date, avgtemp);
+    for (int row = -1; row < ROWS; row++)
+    {
+        fgets(line, 1000, fp); // Skip the first line
+        char *token = strtok(line, ",");
+        int col = 0;
 
-    // adds average temp to yearly avg temp for 12 consecutive entries, counter and yearly avg temp resets after 12 entries
-    avgyeartemp += avgtemp;
-    counter++;
-    if (counter == 12) {
-        printf("\n\nthe year is %d and avg year temp is %lf\n\n", year, avgyeartemp / 12);
-        counter = 0;
-        avgyeartemp = 0;
+        if (row == -1)
+        {
+            continue; // Skip the first row
+        }
+
+        while (token != NULL)
+        {
+            switch (col)
+            {
+            case 0:
+                strcpy(dates[row], token);
+                break;
+            case 1:
+                LandAvrgTemp[row] = atof(token);
+                break;
+            case 2:
+                LandAvrgTempUncertainty[row] = atof(token);
+                break;
+            case 3:
+                LandMaxTemp[row] = atof(token);
+                break;
+            case 4:
+                LandMaxTempUncertainty[row] = atof(token);
+                break;
+            case 5:
+                LandMinTemp[row] = atof(token);
+                break;
+            case 6:
+                LandMinTempUncertainty[row] = atof(token);
+                break;
+            case 7:
+                LandAndOceanAvrgTemp[row] = atof(token);
+                break;
+            case 8:
+                LandAndOceanAvrgTempUncertainty[row] = atof(token);
+                break;
+            }
+            token = strtok(NULL, ","); // Keep going from where you left off till the end
+            col++;
+        }
     }
 
-
-   }
-   fclose(fp);
+    fclose(fp);
+}
+void printArrays()
+{
+    for (int i = 0; i < ROWS; i++)
+    {
+        printf("Date: %s\n", dates[i]);
+        printf("Land Average Temperature: %.2lf\n", LandAvrgTemp[i]);
+        // printf("Land Average Temperature Uncertainty: %f\n", latu[i]);
+        // printf("Land Max Temperature: %f\n", lmt[i]);
+        // printf("Land Max Temperature Uncertainty: %f\n", lmtu[i]);
+        // printf("Land Min Temperature: %f\n", lmit[i]);
+        // printf("Land Min Temperature Uncertainty: %f\n", lmitu[i]);
+        // printf("Land and Ocean Average Temperature: %f\n", loat[i]);
+    }
 }
 
+void q1() // Calculate yearly average for each year between 1760 and 2015
+{
+    int counter = 0;
+    double yearlytotaltemp = 0;
+    char Year[ROWS];
 
-int main (void) {
-    //Q1  calculate the yearly averages for each year between 1760 and 2015 
-   readData();
-   return(0);
-}   
+    for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
+    {
+        strncpy(Year, dates[i], 4);
+        yearlytotaltemp += LandAvrgTemp[i];
+        counter++;
+
+        if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
+        {
+            YearlyLandAvrgTemp[i] = yearlytotaltemp / 12;
+            printf("The average temperature for the year %s is %lf degrees Celsius.\n", Year, YearlyLandAvrgTemp[i]);
+            counter = 0;
+            yearlytotaltemp = 0;
+        }
+    }
+    
+}
+int main(void)
+{
+    assignArrays();
+    printArrays();
+    q1();
+    return (0);
+}

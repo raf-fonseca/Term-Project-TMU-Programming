@@ -1,8 +1,26 @@
 ---
 triple:          'arm64-apple-darwin'
+<<<<<<< HEAD
 binary-path:     '/Users/anshulkrishnakumar/Desktop/Term-Project-TMU-Programming/main'
 relocations:
   - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _readData, symObjAddr: 0x0, symBinAddr: 0x100003D88, symSize: 0x15C }
   - { offsetInCU: 0x42, offset: 0x42, size: 0x8, addend: 0x0, symName: _readData, symObjAddr: 0x0, symBinAddr: 0x100003D88, symSize: 0x15C }
   - { offsetInCU: 0xBB, offset: 0xBB, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x15C, symBinAddr: 0x100003EE4, symSize: 0x2C }
+=======
+binary-path:     '/Users/rafael/Documents/CPS188/Term Project/Term-Project-TMU-Programming/main'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: __Z12assignArraysv, symObjAddr: 0x0, symBinAddr: 0x100003B70, symSize: 0x280 }
+  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _dates, symObjAddr: 0x1400, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0x75, offset: 0x75, size: 0x8, addend: 0x0, symName: _LandAvrgTemp, symObjAddr: 0x9D80, symBinAddr: 0x100010980, symSize: 0x0 }
+  - { offsetInCU: 0x9E, offset: 0x9E, size: 0x8, addend: 0x0, symName: _LandAvrgTempUncertainty, symObjAddr: 0x10180, symBinAddr: 0x100016D80, symSize: 0x0 }
+  - { offsetInCU: 0xB3, offset: 0xB3, size: 0x8, addend: 0x0, symName: _LandMaxTemp, symObjAddr: 0x16580, symBinAddr: 0x10001D180, symSize: 0x0 }
+  - { offsetInCU: 0xC8, offset: 0xC8, size: 0x8, addend: 0x0, symName: _LandMaxTempUncertainty, symObjAddr: 0x1C980, symBinAddr: 0x100023580, symSize: 0x0 }
+  - { offsetInCU: 0xDD, offset: 0xDD, size: 0x8, addend: 0x0, symName: _LandMinTemp, symObjAddr: 0x22D80, symBinAddr: 0x100029980, symSize: 0x0 }
+  - { offsetInCU: 0xF2, offset: 0xF2, size: 0x8, addend: 0x0, symName: _LandMinTempUncertainty, symObjAddr: 0x29180, symBinAddr: 0x10002FD80, symSize: 0x0 }
+  - { offsetInCU: 0x107, offset: 0x107, size: 0x8, addend: 0x0, symName: _LandAndOceanAvrgTemp, symObjAddr: 0x2F580, symBinAddr: 0x100036180, symSize: 0x0 }
+  - { offsetInCU: 0x11C, offset: 0x11C, size: 0x8, addend: 0x0, symName: _LandAndOceanAvrgTempUncertainty, symObjAddr: 0x35980, symBinAddr: 0x10003C580, symSize: 0x0 }
+  - { offsetInCU: 0x12A, offset: 0x12A, size: 0x8, addend: 0x0, symName: __Z12assignArraysv, symObjAddr: 0x0, symBinAddr: 0x100003B70, symSize: 0x280 }
+  - { offsetInCU: 0x1A6, offset: 0x1A6, size: 0x8, addend: 0x0, symName: __Z11printArraysv, symObjAddr: 0x2A4, symBinAddr: 0x100003E14, symSize: 0x98 }
+  - { offsetInCU: 0x1DC, offset: 0x1DC, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x33C, symBinAddr: 0x100003EAC, symSize: 0x30 }
+>>>>>>> 85d407f5229ee2182057e00b48f1848349a6309a
 ...
