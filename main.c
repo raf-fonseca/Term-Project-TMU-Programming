@@ -3,109 +3,100 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define ROWS 3200
+#define ROWS 3192
 #define COLS 11
 
 // Declare the arrays to store the data
-char dates[ROWS];
-char LandAvrgTemp[ROWS]; // 
-char LandAvrgTempUncertainty[ROWS];
-char LandMaxTemp[ROWS];
-char LandMaxTempUncertainty[ROWS];
-char LandMinTemp[ROWS];
-char LandMinTempUncertainty[ROWS];
-char LandAndOceanAvrgTemp[ROWS];
-char LandAndOceanAvrgTempUncertainty[ROWS];
+char dates[ROWS][COLS];
+double LandAvrgTemp[ROWS]; //
+double LandAvrgTempUncertainty[ROWS];
+double LandMaxTemp[ROWS];
+double LandMaxTempUncertainty[ROWS];
+double LandMinTemp[ROWS];
+double LandMinTempUncertainty[ROWS];
+double LandAndOceanAvrgTemp[ROWS];
+double LandAndOceanAvrgTempUncertainty[ROWS];
 
-
-void assignArrays() {
-    FILE* fp = fopen("GlobalTemperatures.csv", "r");
-    if (fp == NULL) {
+void assignArrays()
+{
+    FILE *fp = fopen("GlobalTemperatures.csv", "r");
+    if (fp == NULL)
+    {
         printf("Failed to open file.\n");
         return;
     }
 
-    char str[100000];
-    char* token;
+    char line[1000]; // Line for every row
 
-    fgets(str, 100000, fp); // Read and discard the first line
+    for (int row = -1; row < ROWS; row++)
+    {
+        fgets(line, 1000, fp); // Skip the first line
+        char *token = strtok(line, ",");
+        int col = 0;
 
-    int i = 0;
-    while (fgets(dates, ROWS, fp) != NULL) {
-        token = strtok(str, ",");
-        strcpy(&dates[i], token); // Store the date in the dates array
+        if (row == -1)
+        {
+            continue; // Skip the first row
+        }
 
-        token = strtok(NULL, ",");
-        strcpy(&LandAvrgTemp[i], token); // Store the land average temperature in the LandAvrgTemp array
-
-        token = strtok(NULL, ",");
-        strcpy(&LandAvrgTempUncertainty[i], token); // Store the land average temperature uncertainty in the LandAvrgTempUncertainty array
-
-        token = strtok(NULL, ",");
-        strcpy(&LandMaxTemp[i], token); // Store the land maximum temperature in the LandMaxTemp array
-
-        token = strtok(NULL, ",");
-        strcpy(&LandMaxTempUncertainty[i], token); // Store the land maximum temperature uncertainty in the LandMaxTempUncertainty array
-
-        token = strtok(NULL, ",");
-        strcpy(&LandMinTemp[i], token); // Store the land minimum temperature in the LandMinTemp array
-
-        token = strtok(NULL, ",");
-        strcpy(&LandMinTempUncertainty[i], token); // Store the land minimum temperature uncertainty in the LandMinTempUncertainty array
-
-        token = strtok(NULL, ",");
-        strcpy(&LandAndOceanAvrgTemp[i], token); // Store the land and ocean average temperature in the LandAndOceanAvrgTemp array
-
-        token = strtok(NULL, ",");
-        strcpy(&LandAndOceanAvrgTempUncertainty[i], token); // Store the land and ocean average temperature uncertainty in the LandAndOceanAvrgTempUncertainty array
-
-        i++;
-
-        printf("%s\n", dates);
+        while (token != NULL)
+        {
+            switch (col)
+            {
+            case 0:
+                strcpy(dates[row], token);
+                break;
+            case 1:
+                LandAvrgTemp[row] = atof(token);
+                break;
+            case 2:
+                LandAvrgTempUncertainty[row] = atof(token);
+                break;
+            case 3:
+                LandMaxTemp[row] = atof(token);
+                break;
+            case 4:
+                LandMaxTempUncertainty[row] = atof(token);
+                break;
+            case 5:
+                LandMinTemp[row] = atof(token);
+                break;
+            case 6:
+                LandMinTempUncertainty[row] = atof(token);
+                break;
+            case 7:
+                LandAndOceanAvrgTemp[row] = atof(token);
+                break;
+            case 8:
+                LandAndOceanAvrgTempUncertainty[row] = atof(token);
+                break;
+            }
+            token = strtok(NULL, ","); // Keep going from where you left off till the end
+            col++;
+        }
     }
 
     fclose(fp);
 }
-// char dates[ROWS];
-
-/*void readData() {
-    FILE *fp = fopen("GlobalTemperatures.csv" , "r");
-   char str[100000];
-   char date[30];
-   double avgtemp;
-
-   char *sp; // this allows for assignment, which we cant do with str[100000]
-
-   // Read and discard the first line
-   fgets(str, 100000, fp);
-
-   while (fgets(str, 100000, fp) != NULL) {
-    sp = strtok(str, ","); // start at the beginning of str and stop at the "," string and assign it to our string pointer
-    strcpy(date, sp); // copy the above string into date[30]
-    
-    // Parse the year from the date
-    int year = atoi(date);
-
-    // If the year is less than 1760, skip this iteration
-    if (year < 1760) {
-        continue;
+void printArrays()
+{
+    for (int i = 0; i < ROWS; i++)
+    {
+        printf("Date: %s\n", dates[i]);
+        printf("Land Average Temperature: %.2lf\n", LandAvrgTemp[i]);
+        // printf("Land Average Temperature Uncertainty: %f\n", latu[i]);
+        // printf("Land Max Temperature: %f\n", lmt[i]);
+        // printf("Land Max Temperature Uncertainty: %f\n", lmtu[i]);
+        // printf("Land Min Temperature: %f\n", lmit[i]);
+        // printf("Land Min Temperature Uncertainty: %f\n", lmitu[i]);
+        // printf("Land and Ocean Average Temperature: %f\n", loat[i]);
+        // printf("Land and Ocean Average Temperature Uncertainty: %f\n", loatu[i]);
     }
-
-    sp = strtok(NULL, ","); //pick up where you left off 
-
-    avgtemp = atof(sp); // convert the string to a float
-    
-    printf("\n%s %lf", date, avgtemp);
-
-   }
-   fclose(fp);
 }
-*/
-
-
-
-int main (void) {
-    //Q1  calculate the yearly averages for each year between 1760 and 2015 
-   assignArrays();
-   return(0);
-}   
+int main(void)
+{
+    // Q1  calculate the yearly averages for each year between 1760 and 2015
+    assignArrays();
+    printArrays();
+    return (0);
+}
