@@ -1,1 +1,4 @@
-fgets(str_name, str_size, name_of_file)
+char *fgets(str_name, str_size, name_of_file)
+char *strncpy(char destination_for_copy,  char string_being_copied, int n_characters) // copies up to n characters from one string array into another and returns the array
+char* strcpy(char* destination, char* string_name) // copies a string to a string array and returns that array
+char *strtok(char *str, const char *delim) // gets rid of delimeters
