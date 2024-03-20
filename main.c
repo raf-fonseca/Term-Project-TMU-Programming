@@ -116,37 +116,27 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     }
 }
 
-void q3() // Calculate monthly averages for all years combined between 1900 and 2015
+void q3() // Calculate monthly averages for all years between 1900 and 2015
 {
     double MonthlyAvrgTemp[12]; // Each element represent a month of the year
+    char month[12][10] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     double monthlytotaltemp = 0;
-    int j;
     int counter = 0;
+    int j;
 
-    for (int i = 0; i < 12; i++) // array for each month
+    for (int i = 0; i < 12; i++) // Outer loop iterates for each month
     {
-        for (j = 1680 + i; j < ROWS; j += 12) // each temperature average
+        for (j = 1680 + i; j < ROWS; j += 12) // Index 1680 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
         {
             monthlytotaltemp += LandAvrgTemp[j];
             counter ++;
         }
         MonthlyAvrgTemp[i] = monthlytotaltemp / counter;
-        printf("average for this month is %lf", MonthlyAvrgTemp[i]);
-        monthlytotaltemp = 0;
+        printf("The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]);
+        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
         counter = 0;
 
     }
-
-    // for (int i = 1680; i < ROWS; i++) // Index 1680 starts at the beginning of year 1900
-    // {
-    //     for (int j = 0; j < 12; j++) // Inner loops produces average temperature for each month
-    //     {
-    //         MonthlyAvrgTemp[j] += LandAvrgTemp[i];
-    //         printf("The monthly average temp is %lf", );
-    //         i += 12;
-    //     }
-        
-    // }
 }
 
 int main(void)
