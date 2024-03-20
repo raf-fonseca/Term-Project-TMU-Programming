@@ -8,7 +8,7 @@
 
 // Declare the arrays to store the data
 char dates[ROWS][COLS];
-double LandAvrgTemp[ROWS]; //
+double LandAvrgTemp[ROWS];
 double LandAvrgTempUncertainty[ROWS];
 double LandMaxTemp[ROWS];
 double LandMaxTempUncertainty[ROWS];
@@ -16,6 +16,7 @@ double LandMinTemp[ROWS];
 double LandMinTempUncertainty[ROWS];
 double LandAndOceanAvrgTemp[ROWS];
 double LandAndOceanAvrgTempUncertainty[ROWS];
+double YearlyLandAvrgTemp[ROWS];
 
 void assignArrays()
 {
@@ -93,13 +94,32 @@ void printArrays()
     }
 }
 
-void q1()
+void q1() // Calculate yearly average for each year between 1760 and 2015
 {
-    // Q1 calculate the yearly averages for each year between 1760 and 2015
+    int counter = 0;
+    double yearlytotaltemp = 0;
+    char Year[ROWS];
+
+    for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
+    {
+        strncpy(Year, dates[i], 4);
+        yearlytotaltemp += LandAvrgTemp[i];
+        counter++;
+
+        if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
+        {
+            YearlyLandAvrgTemp[i] = yearlytotaltemp / 12;
+            printf("The average temperature for the year %s is %lf degrees Celsius.\n", Year, YearlyLandAvrgTemp[i]);
+            counter = 0;
+            yearlytotaltemp = 0;
+        }
+    }
+    
 }
 int main(void)
 {
     assignArrays();
     printArrays();
+    q1();
     return (0);
 }

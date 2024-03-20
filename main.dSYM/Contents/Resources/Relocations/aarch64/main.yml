@@ -1,5 +1,12 @@
 ---
 triple:          'arm64-apple-darwin'
+<<<<<<< HEAD
+binary-path:     '/Users/anshulkrishnakumar/Desktop/Term-Project-TMU-Programming/main'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _readData, symObjAddr: 0x0, symBinAddr: 0x100003D88, symSize: 0x15C }
+  - { offsetInCU: 0x42, offset: 0x42, size: 0x8, addend: 0x0, symName: _readData, symObjAddr: 0x0, symBinAddr: 0x100003D88, symSize: 0x15C }
+  - { offsetInCU: 0xBB, offset: 0xBB, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x15C, symBinAddr: 0x100003EE4, symSize: 0x2C }
+=======
 binary-path:     '/Users/rafael/Documents/CPS188/Term Project/Term-Project-TMU-Programming/main'
 relocations:
   - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: __Z12assignArraysv, symObjAddr: 0x0, symBinAddr: 0x100003B70, symSize: 0x280 }
@@ -15,4 +22,5 @@ relocations:
   - { offsetInCU: 0x12A, offset: 0x12A, size: 0x8, addend: 0x0, symName: __Z12assignArraysv, symObjAddr: 0x0, symBinAddr: 0x100003B70, symSize: 0x280 }
   - { offsetInCU: 0x1A6, offset: 0x1A6, size: 0x8, addend: 0x0, symName: __Z11printArraysv, symObjAddr: 0x2A4, symBinAddr: 0x100003E14, symSize: 0x98 }
   - { offsetInCU: 0x1DC, offset: 0x1DC, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x33C, symBinAddr: 0x100003EAC, symSize: 0x30 }
+>>>>>>> 85d407f5229ee2182057e00b48f1848349a6309a
 ...
