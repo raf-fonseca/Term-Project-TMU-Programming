@@ -150,6 +150,11 @@ void q2()
             centuryCounter[3]++;
         }
     }
+    for (int i = 0; i < 4; i++)
+    {
+        centuryAvrgTemp[i] = centuryTotals[i] / centuryCounter[i];
+        printf("The average temperature for the %s century is %.5lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
+    }
 }
 
 void q3() // Calculate monthly averages for all years between 1900 and 2015
