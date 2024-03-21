@@ -115,10 +115,77 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         }
     }
 }
+
+void q2()
+{ // Calculate the average land temperature for the different centuries
+    char century[4][5] = {"18th", "19th", "20th", "21th"};
+    double centuryTotals[4] = {0, 0, 0, 0};
+    double centuryCounter[4] = {0, 0, 0, 0};
+    double centuryAvrgTemp[4];
+    char YearString[ROWS];
+    int YearInt[ROWS];
+
+    for (int i = 120; i < ROWS; i++)
+    {
+        strncpy(YearString, dates[i], 4);
+        YearInt[i] = atoi(YearString);
+        if (YearInt[i] >= 1760 && YearInt[i] < 1800)
+        {
+            centuryTotals[0] += LandAvrgTemp[i];
+            centuryCounter[0]++;
+        }
+        else if (YearInt[i] >= 1800 && YearInt[i] < 1900)
+        {
+            centuryTotals[1] += LandAvrgTemp[i];
+            centuryCounter[1]++;
+        }
+        else if (YearInt[i] >= 1900 && YearInt[i] < 2000)
+        {
+            centuryTotals[2] += LandAvrgTemp[i];
+            centuryCounter[2]++;
+        }
+        else if (YearInt[i] >= 2000 && YearInt[i] < 2100)
+        {
+            centuryTotals[3] += LandAvrgTemp[i];
+            centuryCounter[3]++;
+        }
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        centuryAvrgTemp[i] = centuryTotals[i] / centuryCounter[i];
+        printf("The average temperature for the %s century is %.5lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
+    }
+}
+
+void q3() // Calculate monthly averages for all years between 1900 and 2015
+{
+    double MonthlyAvrgTemp[12]; // Each element represent a month of the year
+    char month[12][10] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    double monthlytotaltemp = 0;
+    int counter = 0;
+    int j;
+
+    for (int i = 0; i < 12; i++) // Outer loop iterates for each month
+    {
+        for (j = 1680 + i; j < ROWS; j += 12) // Index 1680 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
+        {
+            monthlytotaltemp += LandAvrgTemp[j];
+            counter++;
+        }
+        MonthlyAvrgTemp[i] = monthlytotaltemp / counter;
+        printf("The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]);
+        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
+        counter = 0;
+    }
+}
+
 int main(void)
 {
     assignArrays();
-    printArrays();
-    q1();
+    // printArrays();
+    //  q1();
+    //  q3();
+    q2();
     return (0);
 }
