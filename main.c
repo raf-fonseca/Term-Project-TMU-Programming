@@ -114,7 +114,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
             yearlytotaltemp = 0;
         }
     }
-    
 }
 int main(void)
 {
