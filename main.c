@@ -183,25 +183,14 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
 }
 
 void q4()
-{
-    // double coldtemp = YearlyLandAvrgTemp[0]; // Hot and cold temperatures are intially set as the first element in the array
-    // double hottemp = YearlyLandAvrgTemp[0];
-    // char hotyear[5], coldyear[5];
-
-    // for (int i = 0; i < YEARROWS; i++) // The hot and cold temperature values update with each iteration of loop
-    // {
-    //     if (hottemp < YearlyLandAvrgTemp[i])
-    //     {   
-    //         hottemp = YearlyLandAvrgTemp[i];
-    //         strncpy(hotyear, years[i], 4);
-    //     }
-    //     if (coldtemp > YearlyLandAvrgTemp[i])
-    //     {
-    //         coldtemp = YearlyLandAvrgTemp[i];
-    //         strncpy(coldyear, years[i], 4);
-    //     }
-    // }
-    // printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
+{ // What was the hottest month recorded and what was the coldest month recorded? Provide only one tie
+    char MonthString[ROWS];
+    double coldest = LandAvrgTemp[0];
+    double hottest = LandAvrgTemp[0];
+    for (int i = 120; i < ROWS; i++)
+    {
+        strncpy(MonthString, dates[i], 7);
+    }
 }
 
 void q5() // Determine the hottest and coldest year between 1760 and 2015
@@ -213,7 +202,7 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     for (int i = 0; i < YEARROWS; i++) // The hot and cold temperature values update with each iteration of loop
     {
         if (hottemp < YearlyLandAvrgTemp[i])
-        {   
+        {
             hottemp = YearlyLandAvrgTemp[i];
             strncpy(hotyear, years[i], 5);
         }
@@ -225,7 +214,6 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     }
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
-
 
 int main(void)
 {
