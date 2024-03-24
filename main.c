@@ -184,12 +184,59 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
 
 void q4()
 { // What was the hottest month recorded and what was the coldest month recorded? Provide only one tie
-    char MonthString[ROWS];
     double coldest = LandAvrgTemp[0];
     double hottest = LandAvrgTemp[0];
+    int tieFound = 0;
+    char tieDate[7];
+    char *hottestDate;
+    char *coldestDate;
     for (int i = 120; i < ROWS; i++)
     {
-        strncpy(MonthString, dates[i], 7);
+        if (coldest >= LandAvrgTemp[i])
+        {
+            if (coldest > LandAvrgTemp[i])
+            {
+                coldest = LandAvrgTemp[i];
+                strncpy(coldestDate, dates[i], 7);
+                tieFound = 0;
+                tieDate[0] = '\0';
+            }
+            else if (coldest == LandAvrgTemp[i])
+            {
+                tieFound = 1;
+                strncpy(tieDate, dates[i], 7);
+            }
+        }
+        if (hottest <= LandAvrgTemp[i])
+        {
+            if (hottest < LandAvrgTemp[i])
+            {
+                hottest = LandAvrgTemp[i];
+                strncpy(hottestDate, dates[i], 7);
+                tieFound = 0;
+                tieDate[0] = '\0';
+            }
+            else if (hottest == LandAvrgTemp[i])
+            {
+                tieFound = 1;
+                strncpy(tieDate, dates[i], 7);
+            }
+        }
+        if ((LandAvrgTemp[i] == coldest || LandAvrgTemp[i] == hottest) && !tieFound)
+        {
+            tieFound = 1;
+            strncpy(tieDate, dates[i], 7);
+        }
+    }
+    printf("The hottest month recorded is %s and its temperature is %.2lf˚\n", hottestDate, hottest);
+    printf("The coldest month recorded is %s and its temperature is %.2lf˚\n", coldestDate, coldest);
+    if (tieFound)
+    {
+        printf("There is a tie in ");
+        for (int i = 0; i < 7; i++)
+        {
+            printf("%c", tieDate[i]);
+        }
     }
 }
 
@@ -218,11 +265,11 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
 int main(void)
 {
     assignArrays();
-    printArrays();
-    q1();
-    q2();
-    q3();
-    // q4();
-    q5();
+    // printArrays();
+    // q1();
+    // q2();
+    // q3();
+    q4();
+    // q5();
     return (0);
 }
