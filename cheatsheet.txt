@@ -10,3 +10,4 @@ Parsing: Breaking a large string into smaller componets.
 Example: Breaking a sentence into words
 
 char century[4][5] = {"18th", "19th", "20th", "21th"}; //4 is the # of strings, 5 is the size in including null terminator '\0'
+malloc(size); //allocates 5 bytes of memory for an array.
