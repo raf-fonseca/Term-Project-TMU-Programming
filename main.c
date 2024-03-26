@@ -192,52 +192,24 @@ void q4()
     char *coldestDate;
     for (int i = 120; i < ROWS; i++)
     {
-        if (coldest >= LandAvrgTemp[i])
+
+        if (coldest > LandAvrgTemp[i])
         {
-            if (coldest > LandAvrgTemp[i])
-            {
-                coldest = LandAvrgTemp[i];
-                strncpy(coldestDate, dates[i], 7);
-                tieFound = 0;
-                tieDate[0] = '\0';
-            }
-            else if (coldest == LandAvrgTemp[i])
-            {
-                tieFound = 1;
-                strncpy(tieDate, dates[i], 7);
-            }
+            coldest = LandAvrgTemp[i];
+            strncpy(coldestDate, dates[i], 7);
+            tieFound = 0;
+            tieDate[0] = '\0';
         }
-        if (hottest <= LandAvrgTemp[i])
+        if (hottest < LandAvrgTemp[i])
         {
-            if (hottest < LandAvrgTemp[i])
-            {
-                hottest = LandAvrgTemp[i];
-                strncpy(hottestDate, dates[i], 7);
-                tieFound = 0;
-                tieDate[0] = '\0';
-            }
-            else if (hottest == LandAvrgTemp[i])
-            {
-                tieFound = 1;
-                strncpy(tieDate, dates[i], 7);
-            }
-        }
-        if ((LandAvrgTemp[i] == coldest || LandAvrgTemp[i] == hottest) && !tieFound)
-        {
-            tieFound = 1;
-            strncpy(tieDate, dates[i], 7);
+            hottest = LandAvrgTemp[i];
+            strncpy(hottestDate, dates[i], 7);
+            tieFound = 0;
+            tieDate[0] = '\0';
         }
     }
     printf("The hottest month recorded is %s and its temperature is %.2lf˚\n", hottestDate, hottest);
     printf("The coldest month recorded is %s and its temperature is %.2lf˚\n", coldestDate, coldest);
-    if (tieFound)
-    {
-        printf("There is a tie in ");
-        for (int i = 0; i < 7; i++)
-        {
-            printf("%c", tieDate[i]);
-        }
-    }
 }
 
 void q5() // Determine the hottest and coldest year between 1760 and 2015
