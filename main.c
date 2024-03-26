@@ -183,15 +183,13 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
 }
 
 void q4()
-{ // What was the hottest month recorded and what was the coldest month recorded? Provide only one tie
+{ // What was the hottest month recorded and what was the coldest month recorded? Ignore ties
     double coldest = LandAvrgTemp[0];
     double hottest = LandAvrgTemp[0];
-    char *hottestDate;
-    char *coldestDate;
-    char MonthString[ROWS];
+    char *hottestDate = malloc(7);
+    char *coldestDate = malloc(7);
     for (int i = 120; i < ROWS; i++)
     {
-        strncpy(MonthString, dates[i], 7);
         if (coldest > LandAvrgTemp[i])
         {
             coldest = LandAvrgTemp[i];
