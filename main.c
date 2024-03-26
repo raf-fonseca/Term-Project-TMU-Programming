@@ -186,26 +186,21 @@ void q4()
 { // What was the hottest month recorded and what was the coldest month recorded? Provide only one tie
     double coldest = LandAvrgTemp[0];
     double hottest = LandAvrgTemp[0];
-    int tieFound = 0;
-    char tieDate[7];
     char *hottestDate;
     char *coldestDate;
+    char MonthString[ROWS];
     for (int i = 120; i < ROWS; i++)
     {
-
+        strncpy(MonthString, dates[i], 7);
         if (coldest > LandAvrgTemp[i])
         {
             coldest = LandAvrgTemp[i];
             strncpy(coldestDate, dates[i], 7);
-            tieFound = 0;
-            tieDate[0] = '\0';
         }
         if (hottest < LandAvrgTemp[i])
         {
             hottest = LandAvrgTemp[i];
             strncpy(hottestDate, dates[i], 7);
-            tieFound = 0;
-            tieDate[0] = '\0';
         }
     }
     printf("The hottest month recorded is %s and its temperature is %.2lf˚\n", hottestDate, hottest);
