@@ -83,20 +83,6 @@ void assignArrays()
 
     fclose(fp);
 }
-void printArrays()
-{
-    for (int i = 0; i < ROWS; i++)
-    {
-        printf("Date: %s\n", dates[i]);
-        printf("Land Average Temperature: %.2lf\n", LandAvrgTemp[i]);
-        // printf("Land Average Temperature Uncertainty: %f\n", latu[i]);
-        // printf("Land Max Temperature: %f\n", lmt[i]);
-        // printf("Land Max Temperature Uncertainty: %f\n", lmtu[i]);
-        // printf("Land Min Temperature: %f\n", lmit[i]);
-        // printf("Land Min Temperature Uncertainty: %f\n", lmitu[i]);
-        // printf("Land and Ocean Average Temperature: %f\n", loat[i]);
-    }
-}
 
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
