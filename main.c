@@ -208,25 +208,34 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
     }
 }
 
+// What was the hottest month recorded and what was the coldest month recorded? Ignore ties
 void q4()
-{ // What was the hottest month recorded and what was the coldest month recorded? Ignore ties
+{
+    // Initialize the coldest and hottest temperatures to the first temperature in the dataset
     double coldest = LandAvrgTemp[0];
     double hottest = LandAvrgTemp[0];
+    // Allocate memory for the hottest and coldest dates
     char *hottestDate = malloc(7);
     char *coldestDate = malloc(7);
+
+    // Iterate through the dataset starting from the 120th index (assuming data relevant to the query starts here)
     for (int i = 120; i < ROWS; i++)
     {
+        // Update the coldest temperature and its date if a new minimum is found
         if (coldest > LandAvrgTemp[i])
         {
             coldest = LandAvrgTemp[i];
-            strncpy(coldestDate, dates[i], 7);
+            strncpy(coldestDate, dates[i], 7); // Copy the date of the coldest temperature
         }
+        // Update the hottest temperature and its date if a new maximum is found
         if (hottest < LandAvrgTemp[i])
         {
             hottest = LandAvrgTemp[i];
-            strncpy(hottestDate, dates[i], 7);
+            strncpy(hottestDate, dates[i], 7); // Copy the date of the hottest temperature
         }
     }
+
+    // Print the results
     printf("The hottest month recorded is %s and its temperature is %.2lf˚\n", hottestDate, hottest);
     printf("The coldest month recorded is %s and its temperature is %.2lf˚\n", coldestDate, coldest);
 }
