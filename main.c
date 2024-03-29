@@ -92,6 +92,8 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     double yearlytotaltemp = 0;
     int j = 0; // j is the tracker variable for each years[]'s element
     FILE *q6 = fopen("q6.txt", "w");
+    FILE *century19th = fopen("century19th.txt", "w");
+    FILE *century20th = fopen("century20th.txt", "w");
     for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
     {
         yearlytotaltemp += LandAvrgTemp[i];
@@ -101,14 +103,31 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         {
             strncpy(years[j], dates[i], 4);
             YearlyLandAvrgTemp[j] = yearlytotaltemp / 12;
-            printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
+            // printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
             fprintf(q6, "%s %lf\n", years[j], YearlyLandAvrgTemp[j]);
             counter = 0;
             yearlytotaltemp = 0;
             j++;
+
+            strncpy(YearString, dates[i], 4);
+            YearInt[i] = atoi(YearString);
+            if (YearInt[i] >= 1800 && YearInt[i] <= 1899)
+            {
+                fprintf(century19th, "%d %lf\n", j, YearlyLandAvrgTemp[i]);
+            }
+            else if (YearInt[i] >= 1900 && YearInt[i] <= 1999)
+            {
+                fprintf(century20th, "%d %lf\n", j, YearlyLandAvrgTemp[i]);
+            }
         }
     }
+
+    for (int i = 120; i < ROWS; i++)
+    {
+    }
     fclose(q6);
+    fclose(century19th);
+    fclose(century20th);
 }
 
 void q2()
@@ -215,36 +234,14 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
 
-void q7()
-{
-    FILE *century19th = fopen("century19th.txt", "w");
-    FILE *century20th = fopen("century20th.txt", "w");
-    for (int i = 1; i < ROWS; i++)
-    {
-        strncpy(YearString, dates[i], 4);
-        YearInt[i] = atoi(YearString);
-
-        if (YearInt[i] >= 1800 && YearInt[i] <= 1899)
-        {
-            fprintf(century19th, "%d %lf\n", (i - 599), LandAvrgTemp[i]);
-        }
-        else if (YearInt[i] >= 1900 && YearInt[i] <= 1999)
-        {
-            fprintf(century20th, "%d %lf\n", (i - 1799), LandAvrgTemp[i]);
-        }
-    }
-    fclose(century19th);
-    fclose(century20th);
-}
 int main(void)
 {
     assignArrays();
     // printArrays();
-    // q1();
+    q1();
     // q2();
     // q3();
     // q4();
     // q5();
-    q7();
     return (0);
 }
