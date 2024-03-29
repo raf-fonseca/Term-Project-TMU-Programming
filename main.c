@@ -94,6 +94,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     FILE *q6 = fopen("q6.txt", "w");
     FILE *century19th = fopen("century19th.txt", "w");
     FILE *century20th = fopen("century20th.txt", "w");
+
     for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
     {
         yearlytotaltemp += LandAvrgTemp[i];
@@ -107,24 +108,21 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
             fprintf(q6, "%s %lf\n", years[j], YearlyLandAvrgTemp[j]);
             counter = 0;
             yearlytotaltemp = 0;
-            j++;
 
-            strncpy(YearString, dates[i], 4);
-            YearInt[i] = atoi(YearString);
-            if (YearInt[i] >= 1800 && YearInt[i] <= 1899)
+            YearInt[j] = atoi(years[j]);
+
+            if (YearInt[j] >= 1800 && YearInt[j] <= 1899)
             {
-                fprintf(century19th, "%d %lf\n", j, YearlyLandAvrgTemp[i]);
+                // fprintf(century19th, "%d %lf\n", (YearInt[j] - 1799), YearlyLandAvrgTemp[j]);
             }
-            else if (YearInt[i] >= 1900 && YearInt[i] <= 1999)
+            else if (YearInt[j] >= 1900 && YearInt[j] <= 1999)
             {
-                fprintf(century20th, "%d %lf\n", j, YearlyLandAvrgTemp[i]);
+                // fprintf(century20th, "%d %lf\n", (YearInt[j] - 1899), YearlyLandAvrgTemp[j]);
             }
+            j++;
         }
     }
 
-    for (int i = 120; i < ROWS; i++)
-    {
-    }
     fclose(q6);
     fclose(century19th);
     fclose(century20th);
