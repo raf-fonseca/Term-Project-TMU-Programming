@@ -113,11 +113,11 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
 
             if (YearInt[j] >= 1800 && YearInt[j] <= 1899)
             {
-                // fprintf(century19th, "%d %lf\n", (YearInt[j] - 1799), YearlyLandAvrgTemp[j]);
+                fprintf(century19th, "%d %lf\n", (YearInt[j] - 1799), YearlyLandAvrgTemp[j]);
             }
             else if (YearInt[j] >= 1900 && YearInt[j] <= 1999)
             {
-                // fprintf(century20th, "%d %lf\n", (YearInt[j] - 1899), YearlyLandAvrgTemp[j]);
+                fprintf(century20th, "%d %lf\n", (YearInt[j] - 1899), YearlyLandAvrgTemp[j]);
             }
             j++;
         }
