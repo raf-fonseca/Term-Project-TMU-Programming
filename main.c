@@ -21,6 +21,8 @@ double LandAndOceanAvrgTempUncertainty[ROWS];
 double YearlyLandAvrgTemp[YEARROWS];
 double MonthlyAvrgTemp[12];
 char month[12][10] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+char YearString[ROWS];
+int YearInt[ROWS];
 
 void assignArrays()
 {
@@ -114,8 +116,6 @@ void q2()
     double centuryTotals[4] = {0, 0, 0, 0};
     double centuryCounter[4] = {0, 0, 0, 0};
     double centuryAvrgTemp[4];
-    char YearString[ROWS];
-    int YearInt[ROWS];
 
     for (int i = 120; i < ROWS; i++)
     {
