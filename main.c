@@ -138,17 +138,25 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     fclose(century20th);
 }
 
+// Calculate the average land temperature for the different centuries
 void q2()
-{ // Calculate the average land temperature for the different centuries
+{
+    // Define century names for easy reference
     char century[4][5] = {"18th", "19th", "20th", "21th"};
+    // Initialize total temperature sums for each century to 0
     double centuryTotals[4] = {0, 0, 0, 0};
+    // Initialize counters for the number of temperature records per century
     double centuryCounter[4] = {0, 0, 0, 0};
+    // Array to store the calculated average temperatures for each century
     double centuryAvrgTemp[4];
 
+    // Loop through all rows starting from index 120 (assumed start year of 1760)
     for (int i = 120; i < ROWS; i++)
     {
+        // Extract the year from the dates array and convert it to an integer
         strncpy(YearString, dates[i], 4);
         YearInt[i] = atoi(YearString);
+        // Determine the century of the current year and accumulate the total temperature and count
         if (YearInt[i] >= 1760 && YearInt[i] < 1800)
         {
             centuryTotals[0] += LandAvrgTemp[i];
@@ -170,9 +178,12 @@ void q2()
             centuryCounter[3]++;
         }
     }
+    // Calculate and print the average temperature for each century
     for (int i = 0; i < 4; i++)
     {
+        // Calculate the average by dividing the total by the count
         centuryAvrgTemp[i] = centuryTotals[i] / centuryCounter[i];
+        // Print the calculated average temperature for the century
         printf("The average temperature for the %s century is %.5lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
     }
 }
