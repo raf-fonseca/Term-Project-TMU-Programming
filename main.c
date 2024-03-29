@@ -10,6 +10,7 @@
 // Declare the arrays to store the data
 char dates[ROWS][COLS];
 char years[YEARROWS][COLS];
+char months[ROWS][COLS];
 double LandAvrgTemp[ROWS];
 double LandAvrgTempUncertainty[ROWS];
 double LandMaxTemp[ROWS];
@@ -184,43 +185,26 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
 
 void q4()
 {
-    // double coldtemp = YearlyLandAvrgTemp[0]; // Hot and cold temperatures are intially set as the first element in the array
-    // double hottemp = YearlyLandAvrgTemp[0];
-    // char hotyear[5], coldyear[5];
 
-    // for (int i = 0; i < YEARROWS; i++) // The hot and cold temperature values update with each iteration of loop
-    // {
-    //     if (hottemp < YearlyLandAvrgTemp[i])
-    //     {   
-    //         hottemp = YearlyLandAvrgTemp[i];
-    //         strncpy(hotyear, years[i], 4);
-    //     }
-    //     if (coldtemp > YearlyLandAvrgTemp[i])
-    //     {
-    //         coldtemp = YearlyLandAvrgTemp[i];
-    //         strncpy(coldyear, years[i], 4);
-    //     }
-    // }
-    // printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
 
 void q5() // Determine the hottest and coldest year between 1760 and 2015
 {
     double coldtemp = YearlyLandAvrgTemp[0]; // Hot and cold temperatures are intially set as the first element in the array
     double hottemp = YearlyLandAvrgTemp[0];
-    char hotyear[5], coldyear[5];
+    char hotyear[2][5], coldyear[2][5]; // It's 2 because of the null terminator, which takes up an extra space in rows
 
     for (int i = 0; i < YEARROWS; i++) // The hot and cold temperature values update with each iteration of loop
     {
         if (hottemp < YearlyLandAvrgTemp[i])
         {   
             hottemp = YearlyLandAvrgTemp[i];
-            strncpy(hotyear, years[i], 5);
+            strncpy(hotyear[0], years[i], 5);
         }
         if (coldtemp > YearlyLandAvrgTemp[i])
         {
             coldtemp = YearlyLandAvrgTemp[i];
-            strncpy(coldyear, years[i], 5);
+            strncpy(coldyear[0], years[i], 5);
         }
     }
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
