@@ -24,66 +24,74 @@ char month[12][10] = {"January", "February", "March", "April", "May", "June", "J
 char YearString[ROWS];
 int YearInt[ROWS];
 
+// Function to read data from a CSV file and assign it to various arrays
 void assignArrays()
 {
+    // Open the CSV file for reading
     FILE *fp = fopen("GlobalTemperatures.csv", "r");
+    // Check if the file was opened successfully
     if (fp == NULL)
     {
         printf("Failed to open file.\n");
-        return;
+        return; // Exit the function if file cannot be opened
     }
 
-    char line[1000]; // Line for every row
+    char line[1000]; // Array to hold each line of the file
 
+    // Loop through each row of the file
+    // Start with row = -1 to skip the header of the CSV
     for (int row = -1; row < ROWS; row++)
     {
-        fgets(line, 1000, fp); // Skip the first line
-        char *token = strtok(line, ",");
-        int col = 0;
+        fgets(line, 1000, fp);           // Read a line from the file
+        char *token = strtok(line, ","); // Use strtok to split the line into tokens based on commas
+        int col = 0;                     // Column index
 
+        // Check if the current row is the header
         if (row == -1)
         {
-            continue; // Skip the first row
+            continue; // Skip the rest of the loop if it's the header
         }
 
+        // Process each token (column) in the line
         while (token != NULL)
         {
+            // Use a switch statement to assign the token to the correct array based on the column index
             switch (col)
             {
-            case 0:
+            case 0: // Date
                 strcpy(dates[row], token);
                 break;
-            case 1:
+            case 1: // Average Land Temperature
                 LandAvrgTemp[row] = atof(token);
                 break;
-            case 2:
+            case 2: // Land Average Temperature Uncertainty
                 LandAvrgTempUncertainty[row] = atof(token);
                 break;
-            case 3:
+            case 3: // Maximum Land Temperature
                 LandMaxTemp[row] = atof(token);
                 break;
-            case 4:
+            case 4: // Maximum Land Temperature Uncertainty
                 LandMaxTempUncertainty[row] = atof(token);
                 break;
-            case 5:
+            case 5: // Minimum Land Temperature
                 LandMinTemp[row] = atof(token);
                 break;
-            case 6:
+            case 6: // Minimum Land Temperature Uncertainty
                 LandMinTempUncertainty[row] = atof(token);
                 break;
-            case 7:
+            case 7: // Average Land and Ocean Temperature
                 LandAndOceanAvrgTemp[row] = atof(token);
                 break;
-            case 8:
+            case 8: // Land and Ocean Average Temperature Uncertainty
                 LandAndOceanAvrgTempUncertainty[row] = atof(token);
                 break;
             }
-            token = strtok(NULL, ","); // Keep going from where you left off till the end
-            col++;
+            token = strtok(NULL, ","); // Move to the next token in the line
+            col++;                     // Increment the column index for the next token
         }
     }
 
-    fclose(fp);
+    fclose(fp); // Close the file after reading all lines
 }
 
 void q1() // Calculate yearly average for each year between 1760 and 2015
