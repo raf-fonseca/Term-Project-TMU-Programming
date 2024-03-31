@@ -92,23 +92,30 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
-void YearlyAvgCalculator()
+void YearlyAvgCalculator(double *array, int size)
 {
     int counter = 0;
     double yearlytotaltemp = 0;
     int noData = 0;
     for (int i = 0; i < ROWS; i++)
     {
-        yearlytotaltemp += LandAvrgTemp[i];
+        yearlytotaltemp += array[i];
         counter++;
-        if (LandAvrgTemp[i] == 0)
+        if (array[i] == 0)
         {
             noData++;
         }
         if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
         {
-            YearlyLandAvrgTemp[i] = yearlytotaltemp / (12 - noData);
-            printf("%.2lf\n", YearlyLandAvrgTemp[i]);
+            if (noData == 12)
+            {
+                array[i] = 0;
+            }
+            else
+            {
+                array[i] = yearlytotaltemp / (12 - noData);
+            }
+            printf("%.2lf\n", array[i]);
             counter = 0;
             noData = 0;
             yearlytotaltemp = 0;
@@ -344,11 +351,13 @@ void q8() // Write to GNUPlot data file and graph
 int main(void)
 {
     assignArrays();
-    q1();
-    q2();
-    q3();
-    q4();
-    q5();
-    q8();
+    // q1();
+    // q2();
+    // q3();
+    // q4();
+    // q5();
+    // q8();
+    YearlyAvgCalculator(LandAvrgTemp, ROWS);
+
     return (0);
 }
