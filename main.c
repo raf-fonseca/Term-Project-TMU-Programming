@@ -93,7 +93,7 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
-void calculateYearlyAvrg()
+void YearlyAvgCalculator()
 {
     int counter = 0;
     double yearlytotaltemp = 0;
@@ -283,16 +283,27 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     }
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
+void q7()
+{
+    FILE *q7_LandTemps = fopen("q7_LandTemps.txt", "w");
+    FILE *q7_LandMax = fopen("q7_LandMax.txt", "w");
+    FILE *q7_LandMin = fopen("q7_LandMin.txt", "w");
 
+    for (int i = 0; i < ROWS; i++)
+    {
+        printf("%.2lf\n", LandMaxTemp[i]);
+    }
+}
 int main(void)
 {
     assignArrays();
-    calculateYearlyAvrg();
-    // printArrays();
-    // q1();
-    // q2();
-    // q3();
-    // q4();
-    // q5();
+    YearlyAvgCalculator();
+    //  printArrays();
+    //  q1();
+    //  q2();
+    //  q3();
+    //  q4();
+    //  q5();
+    q7();
     return (0);
 }
