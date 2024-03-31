@@ -97,7 +97,6 @@ void calculateYearlyAvrg()
 {
     int counter = 0;
     double yearlytotaltemp = 0;
-    int j = 0; // j is the tracker variable for each years[]'s element
     int noData = 0;
     for (int i = 0; i < ROWS; i++)
     {
@@ -109,12 +108,11 @@ void calculateYearlyAvrg()
         }
         if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
         {
-            YearlyLandAvrgTemp[j] = yearlytotaltemp / (12 - noData);
-            printf("%.2lf\n", YearlyLandAvrgTemp[j]);
+            YearlyLandAvrgTemp[i] = yearlytotaltemp / (12 - noData);
+            printf("%.2lf\n", YearlyLandAvrgTemp[i]);
             counter = 0;
             noData = 0;
             yearlytotaltemp = 0;
-            j++; // Increment the tracker variable
         }
     }
 }
