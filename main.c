@@ -93,7 +93,31 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
-
+void calculateYearlyAvrg()
+{
+    int counter = 0;
+    double yearlytotaltemp = 0;
+    int j = 0; // j is the tracker variable for each years[]'s element
+    int noData = 0;
+    for (int i = 0; i < ROWS; i++)
+    {
+        yearlytotaltemp += LandAvrgTemp[i];
+        counter++;
+        if (LandAvrgTemp[i] == 0)
+        {
+            noData++;
+        }
+        if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
+        {
+            YearlyLandAvrgTemp[j] = yearlytotaltemp / (12 - noData);
+            printf("%.2lf\n", YearlyLandAvrgTemp[j]);
+            counter = 0;
+            noData = 0;
+            yearlytotaltemp = 0;
+            j++; // Increment the tracker variable
+        }
+    }
+}
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
     int counter = 0;
@@ -112,7 +136,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         {
             strncpy(years[j], dates[i], 4);
             YearlyLandAvrgTemp[j] = yearlytotaltemp / 12;
-            // printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
+            printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
             fprintf(q6, "%s %lf\n", years[j], YearlyLandAvrgTemp[j]);
             counter = 0;
             yearlytotaltemp = 0;
@@ -265,8 +289,9 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
 int main(void)
 {
     assignArrays();
+    calculateYearlyAvrg();
     // printArrays();
-    q1();
+    // q1();
     // q2();
     // q3();
     // q4();
