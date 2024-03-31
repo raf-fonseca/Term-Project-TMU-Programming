@@ -341,11 +341,6 @@ void q8() // Write to GNUPlot data file and graph
     fclose(q8);
 }
 
-for (int i = 0; i < ROWS; i++)
-{
-    printf("%.2lf\n", LandMaxTemp[i]);
-}
-}
 int main(void)
 {
     assignArrays();
