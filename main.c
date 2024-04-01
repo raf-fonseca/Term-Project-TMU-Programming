@@ -23,7 +23,6 @@ char month[12][10] = {"January", "February", "March", "April", "May", "June", "J
 char YearString[ROWS];
 int YearInt[ROWS];
 
-
 // Function to read data from a CSV file and assign it to various arrays
 void assignArrays()
 {
@@ -93,6 +92,43 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
+
+// void YearlyAvgCalculator(double *inputArray, double *outputArray, int size)
+// {
+//     int counter = 0;
+//     double yearlytotaltemp = 0;
+//     int noData = 0;
+//     int yearIndex = 0; // Index for the year in outputArray
+//     for (int i = 0; i < size; i++)
+//     {
+//         yearlytotaltemp += inputArray[i];
+//         counter++;
+//         if (inputArray[i] == 0)
+//         {
+//             noData++;
+//         }
+//         if (counter == 12)
+//         { // End of a year
+//             if (noData < 12)
+//             {
+//                 outputArray[yearIndex] = yearlytotaltemp / (12 - noData); // Store average
+//             }
+//             else
+//             {
+//                 outputArray[yearIndex] = 0; // No data for this year
+//             }
+//             counter = 0;
+//             noData = 0;
+//             yearlytotaltemp = 0;
+//             yearIndex++;
+//             if (yearIndex >= YEARROWS)
+//             { // Prevents writing beyond the output array's bounds
+//                 break;
+//             }
+//         }
+//     }
+// }
+
 void YearlyAvgCalculator(double *array, int size)
 {
     int counter = 0;
@@ -123,6 +159,7 @@ void YearlyAvgCalculator(double *array, int size)
         }
     }
 }
+
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
     int counter = 0; // q1 and q6
@@ -130,8 +167,8 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     int lounter = 0; // q11
 
     double yearlytotaltemp = 0;
-    double yearlytotalmax = 0; // q8 variable
-    double yearlytotalmin = 0; // q8 variable
+    double yearlytotalmax = 0;          // q8 variable
+    double yearlytotalmin = 0;          // q8 variable
     double yearlytotallandandocean = 0; // q8 variable
 
     int j = 0; // j is the tracker variable for each years[]'s element
@@ -142,7 +179,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     double YearlyLandMin[ROWS];
 
     double YearlyLandandOcean[ROWS];
-
 
     FILE *q6 = fopen("q6.txt", "w");
     FILE *q8 = fopen("q8.txt", "w");
@@ -196,14 +232,12 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
             YearlyLandAvrgTemp[k] = yearlytotaltemp / 12;
             YearlyLandMax[k] = yearlytotalmax / 12;
             YearlyLandMin[k] = yearlytotalmin / 12;
-            
 
             fprintf(q8, "%s %lf %lf %lf\n", years[k], YearlyLandAvrgTemp[k], YearlyLandMax[k], YearlyLandMin[k]);
             bounter = 0;
             yearlytotaltemp = 0;
             yearlytotalmax = 0;
             yearlytotalmin = 0;
-
 
             k++; // Increment the tracker variable
         }
@@ -222,7 +256,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
             strncpy(years[l], dates[i], 4);
             YearlyLandAvrgTemp[l] = yearlytotaltemp / 12;
             YearlyLandandOcean[l] = yearlytotallandandocean / 12;
-            
+
             fprintf(q11, "%s %lf %lf\n", years[l], YearlyLandAvrgTemp[l], YearlyLandandOcean[l]);
             lounter = 0;
             yearlytotaltemp = 0;
@@ -363,6 +397,98 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
 
+<<<<<<< HEAD
+void q8() // Write to GNUPlot data file and graph
+{
+    FILE *q8 = fopen("q8.txt", "w");
+    int counter = 0;
+
+    // for (int i = 0; i < ROWS; i++) // determining land max and min temps
+    // {
+    //     LandMaxTemp[i] = LandAvrgTemp[i] + LandAvrgTempUncertainty[i];
+    //     LandMinTemp[i] = LandAvrgTemp[i] - LandAvrgTempUncertainty[i];
+    // }
+
+    // FIX YEAR INT SO THAT IT TAKES MORE THAN I - 120 (has to start at 120)
+
+    // this question can only be called if the other question is called
+
+    double YearlyLandUncertainty[ROWS];
+    double yearlylanduncertaintyaverage = 0;
+    double YearlyLandMaxTemp[ROWS];
+    double YearlyLandMinTemp[ROWS];
+
+    double realYearlyLandAvrgTemp[ROWS];
+    double yearlylandaveragetemp = 0;
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        yearlylanduncertaintyaverage += LandAvrgTempUncertainty[i];
+        yearlylandaveragetemp += LandAvrgTemp[i];
+
+        counter++;
+        if (counter == 12)
+        {
+            realYearlyLandAvrgTemp[i] = yearlylandaveragetemp / 12;
+            YearlyLandUncertainty[i] = yearlylanduncertaintyaverage / 12;
+
+            YearlyLandMaxTemp[i] = realYearlyLandAvrgTemp[i] + YearlyLandUncertainty[i];
+            YearlyLandMinTemp[i] = realYearlyLandAvrgTemp[i] - YearlyLandUncertainty[i];
+
+            if (i >= 1200)
+            {
+                fprintf(q8, "%d\t%lf\t%lf\t%lf\n", YearInt[i], realYearlyLandAvrgTemp[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
+            }
+
+            yearlylandaveragetemp = 0;
+            yearlylanduncertaintyaverage = 0;
+            counter = 0;
+            // printf("%lf\t%lf\t%lf\n", YearlyLandUncertainty[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
+        }
+    }
+
+    // for (int i = 1200; i < ROWS; i += 12)
+    // {
+    //     fprintf(q8, "%d\t%lf\t%lf\t%lf\n", YearInt[i], YearlyLandAvrgTemp[90 + j], YearlyLandMaxTemp[0], YearlyLandMinTemp[0]); // index at 90 represents the year 1850, adding j moves to the next year's average temp
+    //     j++;
+    // }
+
+    fclose(q8);
+}
+void q9()
+{
+    int counter = 0;
+    double totAvrgTemp = 0;
+    double totMaxTemp = 0;
+    double totMinTemp = 0;
+    FILE *q9_19thcentury = fopen("q9_19thcentury.txt", "w");
+    FILE *q9_20thcentury = fopen("q9_20thcentury.txt", "w");
+    FILE *q9_21thcentury = fopen("q9_21thcentury.txt", "w");
+
+    for (int i = 1200; i < ROWS; i++)
+    { // starts at 1850
+
+        totAvrgTemp += LandAvrgTemp[i];
+        totMaxTemp += LandMaxTemp[i];
+        totMinTemp += LandMinTemp[i];
+        counter++;
+        strncpy(YearString, dates[i], 4);
+        YearInt[i] = atoi(YearString);
+
+        if (counter == 600)
+        {
+            fprintf(q9_19thcentury, "Average = %lf\n", totAvrgTemp / counter);
+            counter = 0;
+            else if (co)
+                counter = 0;
+            totAvrgTemp = 0;
+            totMaxTemp = 0;
+            totMinTemp = 0;
+        }
+    }
+}
+=======
+>>>>>>> cec77ea0650f37a7b794a0384925a2e64ad45a72
 int main(void)
 {
     assignArrays();
