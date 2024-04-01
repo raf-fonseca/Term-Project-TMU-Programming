@@ -125,22 +125,28 @@ void YearlyAvgCalculator(double *array, int size)
 }
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
-    int counter = 0;
-    int bounter = 0;
+    int counter = 0; // q1 and q6
+    int bounter = 0; // q8
+    int lounter = 0; // q11
 
     double yearlytotaltemp = 0;
     double yearlytotalmax = 0; // q8 variable
     double yearlytotalmin = 0; // q8 variable
+    double yearlytotallandandocean = 0; // q8 variable
 
     int j = 0; // j is the tracker variable for each years[]'s element
     int k = 0; // k is the tracker variable for each years[]'s element
+    int l = 0; // l is the tracker variable for each years[]'s element
 
     double YearlyLandMax[ROWS];
     double YearlyLandMin[ROWS];
 
+    double YearlyLandandOcean[ROWS];
+
 
     FILE *q6 = fopen("q6.txt", "w");
     FILE *q8 = fopen("q8.txt", "w");
+    FILE *q11 = fopen("q11.txt", "w");
 
     FILE *century19th = fopen("century19th.txt", "w");
     FILE *century20th = fopen("century20th.txt", "w");
@@ -203,8 +209,32 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         }
     }
 
+    // start of q11
+
+    for (int i = 1200; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
+    {
+        yearlytotaltemp += LandAvrgTemp[i];
+        yearlytotallandandocean += LandAndOceanAvrgTemp[i];
+        lounter++;
+
+        if (lounter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
+        {
+            strncpy(years[l], dates[i], 4);
+            YearlyLandAvrgTemp[l] = yearlytotaltemp / 12;
+            YearlyLandandOcean[l] = yearlytotallandandocean / 12;
+            
+            fprintf(q11, "%s %lf %lf\n", years[l], YearlyLandAvrgTemp[l], YearlyLandandOcean[l]);
+            lounter = 0;
+            yearlytotaltemp = 0;
+            yearlytotallandandocean = 0;
+
+            l++; // Increment the tracker variable
+        }
+    }
+
     fclose(q6);
     fclose(q8);
+    fclose(q11);
     fclose(century19th);
     fclose(century20th);
 }
@@ -336,13 +366,13 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
 int main(void)
 {
     assignArrays();
-    // q1();
+    YearlyAvgCalculator(LandAvrgTemp, ROWS);
+    q1();
     // q2();
     // q3();
     // q4();
     // q5();
     // q8();
-    YearlyAvgCalculator(LandAvrgTemp, ROWS);
 
     return (0);
 }
