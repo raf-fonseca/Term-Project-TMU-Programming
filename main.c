@@ -188,6 +188,8 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     FILE *century20th = fopen("century20th.txt", "w");
 
     for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
+    // explanation: take 0 to be the start of 1750, so indexes 0 - 11 makes 1 year, and multipy that by 12 to 
+    // get 120, so the index start of the next year is 120
     {
         yearlytotaltemp += LandAvrgTemp[i];
         counter++;
@@ -397,98 +399,6 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
 
-<<<<<<< HEAD
-void q8() // Write to GNUPlot data file and graph
-{
-    FILE *q8 = fopen("q8.txt", "w");
-    int counter = 0;
-
-    // for (int i = 0; i < ROWS; i++) // determining land max and min temps
-    // {
-    //     LandMaxTemp[i] = LandAvrgTemp[i] + LandAvrgTempUncertainty[i];
-    //     LandMinTemp[i] = LandAvrgTemp[i] - LandAvrgTempUncertainty[i];
-    // }
-
-    // FIX YEAR INT SO THAT IT TAKES MORE THAN I - 120 (has to start at 120)
-
-    // this question can only be called if the other question is called
-
-    double YearlyLandUncertainty[ROWS];
-    double yearlylanduncertaintyaverage = 0;
-    double YearlyLandMaxTemp[ROWS];
-    double YearlyLandMinTemp[ROWS];
-
-    double realYearlyLandAvrgTemp[ROWS];
-    double yearlylandaveragetemp = 0;
-
-    for (int i = 0; i < ROWS; i++)
-    {
-        yearlylanduncertaintyaverage += LandAvrgTempUncertainty[i];
-        yearlylandaveragetemp += LandAvrgTemp[i];
-
-        counter++;
-        if (counter == 12)
-        {
-            realYearlyLandAvrgTemp[i] = yearlylandaveragetemp / 12;
-            YearlyLandUncertainty[i] = yearlylanduncertaintyaverage / 12;
-
-            YearlyLandMaxTemp[i] = realYearlyLandAvrgTemp[i] + YearlyLandUncertainty[i];
-            YearlyLandMinTemp[i] = realYearlyLandAvrgTemp[i] - YearlyLandUncertainty[i];
-
-            if (i >= 1200)
-            {
-                fprintf(q8, "%d\t%lf\t%lf\t%lf\n", YearInt[i], realYearlyLandAvrgTemp[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
-            }
-
-            yearlylandaveragetemp = 0;
-            yearlylanduncertaintyaverage = 0;
-            counter = 0;
-            // printf("%lf\t%lf\t%lf\n", YearlyLandUncertainty[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
-        }
-    }
-
-    // for (int i = 1200; i < ROWS; i += 12)
-    // {
-    //     fprintf(q8, "%d\t%lf\t%lf\t%lf\n", YearInt[i], YearlyLandAvrgTemp[90 + j], YearlyLandMaxTemp[0], YearlyLandMinTemp[0]); // index at 90 represents the year 1850, adding j moves to the next year's average temp
-    //     j++;
-    // }
-
-    fclose(q8);
-}
-void q9()
-{
-    int counter = 0;
-    double totAvrgTemp = 0;
-    double totMaxTemp = 0;
-    double totMinTemp = 0;
-    FILE *q9_19thcentury = fopen("q9_19thcentury.txt", "w");
-    FILE *q9_20thcentury = fopen("q9_20thcentury.txt", "w");
-    FILE *q9_21thcentury = fopen("q9_21thcentury.txt", "w");
-
-    for (int i = 1200; i < ROWS; i++)
-    { // starts at 1850
-
-        totAvrgTemp += LandAvrgTemp[i];
-        totMaxTemp += LandMaxTemp[i];
-        totMinTemp += LandMinTemp[i];
-        counter++;
-        strncpy(YearString, dates[i], 4);
-        YearInt[i] = atoi(YearString);
-
-        if (counter == 600)
-        {
-            fprintf(q9_19thcentury, "Average = %lf\n", totAvrgTemp / counter);
-            counter = 0;
-            else if (co)
-                counter = 0;
-            totAvrgTemp = 0;
-            totMaxTemp = 0;
-            totMinTemp = 0;
-        }
-    }
-}
-=======
->>>>>>> cec77ea0650f37a7b794a0384925a2e64ad45a72
 int main(void)
 {
     assignArrays();
