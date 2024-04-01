@@ -93,7 +93,36 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
-
+void YearlyAvgCalculator(double *array, int size)
+{
+    int counter = 0;
+    double yearlytotaltemp = 0;
+    int noData = 0;
+    for (int i = 0; i < ROWS; i++)
+    {
+        yearlytotaltemp += array[i];
+        counter++;
+        if (array[i] == 0)
+        {
+            noData++;
+        }
+        if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
+        {
+            if (noData == 12)
+            {
+                array[i] = 0;
+            }
+            else
+            {
+                array[i] = yearlytotaltemp / (12 - noData);
+            }
+            printf("%.2lf\n", array[i]);
+            counter = 0;
+            noData = 0;
+            yearlytotaltemp = 0;
+        }
+    }
+}
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
     int counter = 0;
@@ -307,10 +336,13 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
 int main(void)
 {
     assignArrays();
-    q1();
-    q2();
-    q3();
-    q4();
-    q5();
+    // q1();
+    // q2();
+    // q3();
+    // q4();
+    // q5();
+    // q8();
+    YearlyAvgCalculator(LandAvrgTemp, ROWS);
+
     return (0);
 }
