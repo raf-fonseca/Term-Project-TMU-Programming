@@ -367,7 +367,7 @@ int main(void)
 {
     assignArrays();
     YearlyAvgCalculator(LandAvrgTemp, ROWS);
-    q1();
+    // q1();
     // q2();
     // q3();
     // q4();
