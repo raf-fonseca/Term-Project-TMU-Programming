@@ -92,41 +92,41 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
-void YearlyAvgCalculator(double *inputArray, double *outputArray, int size)
-{
-    int counter = 0;
-    double yearlytotaltemp = 0;
-    int noData = 0;
-    int yearIndex = 0; // Index for the year in outputArray
-    for (int i = 0; i < size; i++)
-    {
-        yearlytotaltemp += inputArray[i];
-        counter++;
-        if (inputArray[i] == 0)
-        {
-            noData++;
-        }
-        if (counter == 12)
-        { // End of a year
-            if (noData < 12)
-            {
-                outputArray[yearIndex] = yearlytotaltemp / (12 - noData); // Store average
-            }
-            else
-            {
-                outputArray[yearIndex] = 0; // No data for this year
-            }
-            counter = 0;
-            noData = 0;
-            yearlytotaltemp = 0;
-            yearIndex++;
-            if (yearIndex >= YEARROWS)
-            { // Prevents writing beyond the output array's bounds
-                break;
-            }
-        }
-    }
-}
+// void YearlyAvgCalculator(double *inputArray, double *outputArray, int size)
+// {
+//     int counter = 0;
+//     double yearlytotaltemp = 0;
+//     int noData = 0;
+//     int yearIndex = 0; // Index for the year in outputArray
+//     for (int i = 0; i < size; i++)
+//     {
+//         yearlytotaltemp += inputArray[i];
+//         counter++;
+//         if (inputArray[i] == 0)
+//         {
+//             noData++;
+//         }
+//         if (counter == 12)
+//         { // End of a year
+//             if (noData < 12)
+//             {
+//                 outputArray[yearIndex] = yearlytotaltemp / (12 - noData); // Store average
+//             }
+//             else
+//             {
+//                 outputArray[yearIndex] = 0; // No data for this year
+//             }
+//             counter = 0;
+//             noData = 0;
+//             yearlytotaltemp = 0;
+//             yearIndex++;
+//             if (yearIndex >= YEARROWS)
+//             { // Prevents writing beyond the output array's bounds
+//                 break;
+//             }
+//         }
+//     }
+// }
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
     int counter = 0;
@@ -393,34 +393,35 @@ void q8() // Write to GNUPlot data file and graph
 }
 void q9()
 {
-    double q9_Temp[YEARROWS];
-    double q9_MaxTemp[YEARROWS];
-    double q9_MinTemp[YEARROWS];
+    int counter = 0;
+    double totAvrgTemp = 0;
+    double totMaxTemp = 0;
+    double totMinTemp = 0;
+    FILE *q9_19thcentury = fopen("q9_19thcentury.txt", "w");
+    FILE *q9_20thcentury = fopen("q9_20thcentury.txt", "w");
+    FILE *q9_21thcentury = fopen("q9_21thcentury.txt", "w");
 
-    // Assuming YEARROWS represents the total years and ROWS is the correct size of input data
-    YearlyAvgCalculator(LandAvrgTemp, q9_Temp, ROWS);
-    YearlyAvgCalculator(LandMaxTemp, q9_MaxTemp, ROWS);
-    YearlyAvgCalculator(LandMinTemp, q9_MinTemp, ROWS);
-    printf("The average temperature for the year 1850 is %lf\n", q9_Temp[0]);
-    FILE *q9_LandTemp = fopen("q9_LandTemp.txt", "w");
-    FILE *q9_LandMaxTemp = fopen("q9_LandMaxTemp.txt", "w");
-    FILE *q9_LandMinTemp = fopen("q9_LandMinTemp.txt", "w");
+    for (int i = 1200; i < ROWS; i++)
+    { // starts at 1850
 
-    // Corrected loop to iterate over YEARROWS and calculate the correct year
-    // for (int i = 0; i < YEARROWS; i++)
-    // {
-    //     int year = 1850 + i;
-    //     if (q9_Temp[i] != 0)
-    //     { // Only write if there's data
-    //         fprintf(q9_LandTemp, "%d\t%lf\n", year, q9_Temp[i]);
-    //         fprintf(q9_LandMaxTemp, "%d\t%lf\n", year, q9_MaxTemp[i]);
-    //         fprintf(q9_LandMinTemp, "%d\t%lf\n", year, q9_MinTemp[i]);
-    //     }
-    // }
+        totAvrgTemp += LandAvrgTemp[i];
+        totMaxTemp += LandMaxTemp[i];
+        totMinTemp += LandMinTemp[i];
+        counter++;
+        strncpy(YearString, dates[i], 4);
+        YearInt[i] = atoi(YearString);
 
-    fclose(q9_LandTemp);
-    fclose(q9_LandMaxTemp);
-    fclose(q9_LandMinTemp);
+        if (counter == 600)
+        {
+            fprintf(q9_19thcentury, "Average = %lf\n", totAvrgTemp / counter);
+            counter = 0;
+            else if (co)
+                counter = 0;
+            totAvrgTemp = 0;
+            totMaxTemp = 0;
+            totMinTemp = 0;
+        }
+    }
 }
 int main(void)
 {
