@@ -92,33 +92,38 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
-void YearlyAvgCalculator(double *array, int size)
+void YearlyAvgCalculator(double *inputArray, double *outputArray, int size)
 {
     int counter = 0;
     double yearlytotaltemp = 0;
     int noData = 0;
-    for (int i = 0; i < ROWS; i++)
+    int yearIndex = 0; // Index for the year in outputArray
+    for (int i = 0; i < size; i++)
     {
-        yearlytotaltemp += array[i];
+        yearlytotaltemp += inputArray[i];
         counter++;
-        if (array[i] == 0)
+        if (inputArray[i] == 0)
         {
             noData++;
         }
-        if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
-        {
-            if (noData == 12)
+        if (counter == 12)
+        { // End of a year
+            if (noData < 12)
             {
-                array[i] = 0;
+                outputArray[yearIndex] = yearlytotaltemp / (12 - noData); // Store average
             }
             else
             {
-                array[i] = yearlytotaltemp / (12 - noData);
+                outputArray[yearIndex] = 0; // No data for this year
             }
-            printf("%.2lf\n", array[i]);
             counter = 0;
             noData = 0;
             yearlytotaltemp = 0;
+            yearIndex++;
+            if (yearIndex >= YEARROWS)
+            { // Prevents writing beyond the output array's bounds
+                break;
+            }
         }
     }
 }
@@ -347,7 +352,37 @@ void q8() // Write to GNUPlot data file and graph
 
     fclose(q8);
 }
+void q9()
+{
+    double q9_Temp[YEARROWS];
+    double q9_MaxTemp[YEARROWS];
+    double q9_MinTemp[YEARROWS];
 
+    // Assuming YEARROWS represents the total years and ROWS is the correct size of input data
+    YearlyAvgCalculator(LandAvrgTemp, q9_Temp, ROWS);
+    YearlyAvgCalculator(LandMaxTemp, q9_MaxTemp, ROWS);
+    YearlyAvgCalculator(LandMinTemp, q9_MinTemp, ROWS);
+    printf("The average temperature for the year 1850 is %lf\n", q9_Temp[0]);
+    FILE *q9_LandTemp = fopen("q9_LandTemp.txt", "w");
+    FILE *q9_LandMaxTemp = fopen("q9_LandMaxTemp.txt", "w");
+    FILE *q9_LandMinTemp = fopen("q9_LandMinTemp.txt", "w");
+
+    // Corrected loop to iterate over YEARROWS and calculate the correct year
+    // for (int i = 0; i < YEARROWS; i++)
+    // {
+    //     int year = 1850 + i;
+    //     if (q9_Temp[i] != 0)
+    //     { // Only write if there's data
+    //         fprintf(q9_LandTemp, "%d\t%lf\n", year, q9_Temp[i]);
+    //         fprintf(q9_LandMaxTemp, "%d\t%lf\n", year, q9_MaxTemp[i]);
+    //         fprintf(q9_LandMinTemp, "%d\t%lf\n", year, q9_MinTemp[i]);
+    //     }
+    // }
+
+    fclose(q9_LandTemp);
+    fclose(q9_LandMaxTemp);
+    fclose(q9_LandMinTemp);
+}
 int main(void)
 {
     assignArrays();
@@ -357,7 +392,8 @@ int main(void)
     // q4();
     // q5();
     // q8();
-    YearlyAvgCalculator(LandAvrgTemp, ROWS);
+    // YearlyAvgCalculator(LandAvrgTemp, ROWS);
+    q9();
 
     return (0);
 }
