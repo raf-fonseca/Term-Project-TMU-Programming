@@ -130,44 +130,10 @@ void YearlyAvgCalculator(double *inputArray, double *outputArray)
 
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
-
-    int lounter = 0; // q11
-
-    double YearlyLandandOcean[ROWS];
-
-    double YearlyUncertainty[ROWS];
-
-    FILE *q11 = fopen("q11.txt", "w");
-
     for (int i = 10; i < YEARROWS; i++)
     {
         printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]);
     }
-
-    // start of q11
-
-    // for (int i = 1200; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
-    // {
-    //     yearlytotaltemp += LandAvrgTemp[i];
-    //     yearlytotallandandocean += LandAndOceanAvrgTemp[i];
-    //     lounter++;
-
-    //     if (lounter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
-    //     {
-    //         strncpy(years[l], dates[i], 4);
-    //         YearlyLandAvrgTemp[l] = yearlytotaltemp / 12;
-    //         YearlyLandandOcean[l] = yearlytotallandandocean / 12;
-
-    //         fprintf(q11, "%s %lf %lf\n", years[l], YearlyLandAvrgTemp[l], YearlyLandandOcean[l]);
-    //         lounter = 0;
-    //         yearlytotaltemp = 0;
-    //         yearlytotallandandocean = 0;
-
-    //         l++; // Increment the tracker variable
-    //     }
-    // }
-
-    // fclose(q11);
 }
 
 // Calculate the average land temperature for the different centuries
