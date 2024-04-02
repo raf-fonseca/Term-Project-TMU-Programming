@@ -239,26 +239,32 @@ void q4()
     printf("The coldest month recorded is %s and its temperature is %.2lf˚\n", coldestDate, coldest);
 }
 
-void q5() // Determine the hottest and coldest year between 1760 and 2015
+void q5() // Determine the hottest and coldest year
 {
-    double coldtemp = YearlyLandAvrgTemp[0]; // Hot and cold temperatures are intially set as the first element in the array
+    // Initialize the coldest and hottest temperatures to the first year's average temperature
+    double coldtemp = YearlyLandAvrgTemp[0];
     double hottemp = YearlyLandAvrgTemp[0];
-    char hotyear[5], coldyear[5];
+    // Initialize variables to store the hottest and coldest year, starting from the base year of 1750
+    int hotYear, coldYear;
 
-    for (int i = 0; i < YEARROWS; i++) // The hot and cold temperature values update with each iteration of loop
+    // Iterate through the YearlyLandAvrgTemp array to find the hottest and coldest years
+    for (int i = 0; i < YEARROWS; i++)
     {
+        // If the current year's temperature is higher than the current hottest, update hottemp and hotYear
         if (hottemp < YearlyLandAvrgTemp[i])
         {
-            hottemp = YearlyLandAvrgTemp[i];
-            strncpy(hotyear, years[i], 5);
+            hottemp = YearlyLandAvrgTemp[i]; // Update the hottest temperature
+            hotYear = i + 1750;              // Calculate the year based on the index and base year
         }
+        // If the current year's temperature is lower than the current coldest, update coldtemp and coldYear
         if (coldtemp > YearlyLandAvrgTemp[i])
         {
-            coldtemp = YearlyLandAvrgTemp[i];
-            strncpy(coldyear, years[i], 5);
+            coldtemp = YearlyLandAvrgTemp[i]; // Update the coldest temperature
+            coldYear = i + 1750;              // Calculate the year based on the index and base year
         }
     }
-    printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
+    // Print the hottest and coldest years with their corresponding average temperatures
+    printf("The hottest year is %d and its average temperature is %lf degrees Celsius.\nThe coldest year is %d and its average temperature is %lf degrees Celsius.", hotYear, hottemp, coldYear, coldtemp);
 }
 
 void q6()
@@ -394,11 +400,11 @@ int main(void)
 {
     assignArrays();
     YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
-    q1();
-    //  q2();
+    // q1();
+    // q2();
     //  q3();
     //  q4();
-    //  q5();
+    q5();
     // q7();
     // q8();
     // q11();
