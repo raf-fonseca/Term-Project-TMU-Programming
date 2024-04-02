@@ -306,19 +306,13 @@ void q8() // Write to GNUPlot data file and graph
     YearlyAvgCalculator(LandMaxTemp, YearlyLandMaxTemp);
     YearlyAvgCalculator(LandMinTemp, YearlyLandMinTemp);
 
-    FILE *q8_LandTemp = fopen("q8_LandTemp.txt", "w");
-    FILE *q8_LandMinTemp = fopen("q8_LandMinTemp.txt", "w");
-    FILE *q8_LandMaxTemp = fopen("q8_LandMaxTemp.txt", "w");
+    FILE *q8 = fopen("q8.txt", "w");
 
     for (int i = 100; i < YEARROWS; i++)
     {
-        fprintf(q8_LandTemp, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
-        fprintf(q8_LandMinTemp, "%d %lf\n", (i + 1750), YearlyLandMinTemp[i]);
-        fprintf(q8_LandMaxTemp, "%d %lf\n", (i + 1750), YearlyLandMaxTemp[i]);
+        fprintf(q8, "%d %lf %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
     }
-    fclose(q8_LandTemp);
-    fclose(q8_LandMinTemp);
-    fclose(q8_LandMaxTemp);
+    fclose(q8);
 }
 void q9()
 {
@@ -402,11 +396,11 @@ int main(void)
     YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
     // q1();
     // q2();
-    //  q3();
-    //  q4();
-    q5();
+    // q3();
+    // q4();
+    // q5();
     // q7();
-    // q8();
+    q8();
     // q11();
 
     return (0);
