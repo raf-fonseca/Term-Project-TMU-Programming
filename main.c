@@ -152,7 +152,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
 
     double YearlyUncertainty[ROWS];
 
-    FILE *q6 = fopen("q6.txt", "w");
     FILE *q8 = fopen("q8.txt", "w");
     FILE *q11 = fopen("q11.txt", "w");
 
@@ -162,7 +161,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
     for (int i = 10; i < YEARROWS; i++)
     {
-        printf("%lf.\n", YearlyLandAvrgTemp[i]);
+        printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]);
     }
     for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
     // explanation: take 0 to be the start of 1750, so indexes 0 - 11 makes 1 year, and multipy that by 12 to
@@ -176,7 +175,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
             strncpy(years[j], dates[i], 4);
             // YearlyLandAvrgTemp[j] = yearlytotaltemp / 12;
             // printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
-            fprintf(q6, "%s %lf\n", years[j], YearlyLandAvrgTemp[j]);
+
             counter = 0;
             yearlytotaltemp = 0;
 
@@ -400,6 +399,16 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
 
+void q6()
+{
+    FILE *q6 = fopen("q6.txt", "w");
+    YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
+    for (int i = 10; i < YEARROWS; i++)
+    {
+        fprintf(q6, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
+    }
+    fclose(q6);
+}
 void q8() // Write to GNUPlot data file and graph
 {
     FILE *q8 = fopen("q8.txt", "w");
