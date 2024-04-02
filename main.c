@@ -155,9 +155,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     FILE *q8 = fopen("q8.txt", "w");
     FILE *q11 = fopen("q11.txt", "w");
 
-    FILE *century19th = fopen("century19th.txt", "w");
-    FILE *century20th = fopen("century20th.txt", "w");
-
     YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
     for (int i = 10; i < YEARROWS; i++)
     {
@@ -180,16 +177,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
             yearlytotaltemp = 0;
 
             YearInt[j] = atoi(years[j]); // Convert string to years
-
-            // Assigns the average yearly temperature to the respective century file
-            if (YearInt[j] >= 1800 && YearInt[j] <= 1899)
-            {
-                fprintf(century19th, "%d %lf\n", (YearInt[j] - 1799), YearlyLandAvrgTemp[j]); // Print x and y values for the yearly temperature for 19th century
-            }
-            else if (YearInt[j] >= 1900 && YearInt[j] <= 1999)
-            {
-                fprintf(century20th, "%d %lf\n", (YearInt[j] - 1899), YearlyLandAvrgTemp[j]); // Print x and y values for the yearly temperature for 19th century
-            }
 
             j++; // Increment the tracker variable
         }
@@ -244,11 +231,8 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         }
     }
 
-    fclose(q6);
     fclose(q8);
     fclose(q11);
-    fclose(century19th);
-    fclose(century20th);
 }
 
 // Calculate the average land temperature for the different centuries
@@ -409,6 +393,28 @@ void q6()
     }
     fclose(q6);
 }
+
+void q7()
+{
+    YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
+    FILE *century19th = fopen("century19th.txt", "w");
+    FILE *century20th = fopen("century20th.txt", "w");
+    for (int i = 50; i < YEARROWS; i++)
+    {
+        // Assigns the average yearly temperature to the respective century file
+        if (i >= 50 && i <= 149)
+        {
+            fprintf(century19th, "%d %lf\n", (i - 49), YearlyLandAvrgTemp[i]); // Print x and y values for the yearly temperature for 19th century
+        }
+        else if (i >= 150 && i <= 249)
+        {
+            fprintf(century20th, "%d %lf\n", (i - 149), YearlyLandAvrgTemp[i]); // Print x and y values for the yearly temperature for 19th century
+        }
+    }
+
+    fclose(century19th);
+    fclose(century20th);
+}
 void q8() // Write to GNUPlot data file and graph
 {
     FILE *q8 = fopen("q8.txt", "w");
@@ -502,11 +508,12 @@ void q9()
 int main(void)
 {
     assignArrays();
-    q1();
+    // q1();
     //  q2();
     //  q3();
     //  q4();
     //  q5();
+    q7();
     //  q8();
 
     return (0);
