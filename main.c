@@ -130,22 +130,8 @@ void YearlyAvgCalculator(double *inputArray, double *outputArray)
 
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
-    int counter = 0; // q1 and q6
-    int bounter = 0; // q8
+
     int lounter = 0; // q11
-
-    double yearlytotaltemp = 0;
-    double yearlytotalmax = 0;          // q8 variable
-    double yearlytotalmin = 0;          // q8 variable
-    double yearlytotallandandocean = 0; // q8 variable
-    double yearlytotaluncertainty = 0;  // q10 variable
-
-    int j = 0; // j is the tracker variable for each years[]'s element
-    int k = 0; // k is the tracker variable for each years[]'s element
-    int l = 0; // l is the tracker variable for each years[]'s element
-
-    double YearlyLandMax[ROWS];
-    double YearlyLandMin[ROWS];
 
     double YearlyLandandOcean[ROWS];
 
@@ -157,32 +143,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     for (int i = 10; i < YEARROWS; i++)
     {
         printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]);
-    }
-
-    // start of q8
-
-    for (int i = 1200; i < ROWS; i++) // Index 1200 starts at the beginning of year 1850
-    {
-        yearlytotaltemp += LandAvrgTemp[i];
-        yearlytotalmax += LandMaxTemp[i];
-        yearlytotalmin += LandMinTemp[i];
-        bounter++;
-
-        if (bounter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
-        {
-            strncpy(years[k], dates[i], 4);
-            YearlyLandAvrgTemp[k] = yearlytotaltemp / 12;
-            YearlyLandMax[k] = yearlytotalmax / 12;
-            YearlyLandMin[k] = yearlytotalmin / 12;
-
-            fprintf(q8, "%s %lf %lf %lf\n", years[k], YearlyLandAvrgTemp[k], YearlyLandMax[k], YearlyLandMin[k]);
-            bounter = 0;
-            yearlytotaltemp = 0;
-            yearlytotalmax = 0;
-            yearlytotalmin = 0;
-
-            k++; // Increment the tracker variable
-        }
     }
 
     // start of q11
