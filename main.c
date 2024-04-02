@@ -355,7 +355,7 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
             strncpy(coldyear, years[i], 5);
         }
     }
-    printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
+    printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear[0], hottemp, coldyear[0], coldtemp);
 }
 
 q10()
