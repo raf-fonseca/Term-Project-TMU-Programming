@@ -1,12 +1,12 @@
-The average temperature for January is 4.791333 degrees Celsius.
-The average temperature for February is 5.465750 degrees Celsius.
-The average temperature for March is 8.513250 degrees Celsius.
-The average temperature for April is 12.530250 degrees Celsius.
-The average temperature for May is 16.240333 degrees Celsius.
-The average temperature for June is 19.035417 degrees Celsius.
-The average temperature for July is 20.101917 degrees Celsius.
-The average temperature for August is 19.538667 degrees Celsius.
-The average temperature for September is 17.235167 degrees Celsius.
-The average temperature for October is 13.693833 degrees Celsius.
-The average temperature for November is 9.442417 degrees Celsius.
-The average temperature for December is 6.085167 degrees Celsius.
+1 4.791333 0.103083
+2 5.465750 0.122750
+3 8.513250 0.097167
+4 12.530250 0.104583
+5 16.240333 0.111500
+6 19.035417 0.115667
+7 20.101917 0.142583
+8 19.538667 0.130750
+9 17.235167 0.109000
+10 13.693833 0.106583
+11 9.442417 0.123583
+12 6.085167 0.098500

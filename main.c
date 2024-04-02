@@ -19,6 +19,7 @@ double LandAndOceanAvrgTemp[ROWS];
 double LandAndOceanAvrgTempUncertainty[ROWS];
 double YearlyLandAvrgTemp[YEARROWS]; // starts at year 1760
 double MonthlyAvrgTemp[12];
+double MonthlyAvrgUncertaintyTemp[12];
 char month[12][10] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 char YearString[ROWS];
 int YearInt[ROWS];
@@ -361,6 +362,7 @@ q10()
 {
     FILE *q10 = fopen("q10.txt", "w");
     double monthlytotaltemp = 0;
+    double monthlyuncertaintytemp =0;
     int j;
 
     for (int i = 0; i < 12; i++) // Outer loop iterates for each month
@@ -368,13 +370,15 @@ q10()
         for (j = 3000 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
         {
             monthlytotaltemp += LandAvrgTemp[j];
-            printf("%s %lf\n", month[i], LandAvrgTemp[j]);
+            monthlyuncertaintytemp += LandAvrgTempUncertainty[j];
+            printf("%s %lf %lf\n", month[i], LandAvrgTemp[j], LandAvrgTempUncertainty[j]);
             // printf("%s %lf\n", month[i], LandAvrgTemp[j]);
         }
         MonthlyAvrgTemp[i] = monthlytotaltemp / 12;
-        fprintf(q10, "The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]);
-        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
-
+        MonthlyAvrgUncertaintyTemp[i] = monthlyuncertaintytemp / 12;
+        fprintf(q10, "%d %lf %lf\n", i + 1, MonthlyAvrgTemp[i], MonthlyAvrgUncertaintyTemp[i]);
+        monthlytotaltemp = 0; // Total monthly accumulation resets after all iterations of the specific month ends
+        monthlyuncertaintytemp = 0;
     }
     fclose(q10);
 
