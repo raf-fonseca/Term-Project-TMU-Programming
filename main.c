@@ -288,7 +288,6 @@ void q2()
 void q3() // Calculate monthly averages for all years between 1900 and 2015
 {
     double monthlytotaltemp = 0;
-    int counter = 0;
     int j;
 
     for (int i = 0; i < 12; i++) // Outer loop iterates for each month
@@ -296,12 +295,11 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
         for (j = 1800 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
         {
             monthlytotaltemp += LandAvrgTemp[j];
-            counter++;
+            printf("%s %lf\n", month[i], LandAvrgTemp[j]);
         }
-        MonthlyAvrgTemp[i] = monthlytotaltemp / counter;
+        MonthlyAvrgTemp[i] = monthlytotaltemp / 12;
         printf("The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]);
-        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
-        counter = 0;
+        monthlytotaltemp = 0; //  Total monthly accumulation resets after all iterations of the specific month ends
     }
 }
 
@@ -361,13 +359,35 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
 
 q10()
 {
-    FILE *q6 = fopen("q6.txt", "w");
-    YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
-    for (int i = 10; i < YEARROWS; i++)
+    FILE *q10 = fopen("q10.txt", "w");
+    double monthlytotaltemp = 0;
+    int j;
+
+    for (int i = 0; i < 12; i++) // Outer loop iterates for each month
     {
-        fprintf(q6, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
+        for (j = 3000 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
+        {
+            monthlytotaltemp += LandAvrgTemp[j];
+            printf("%s %lf\n", month[i], LandAvrgTemp[j]);
+            // printf("%s %lf\n", month[i], LandAvrgTemp[j]);
+        }
+        MonthlyAvrgTemp[i] = monthlytotaltemp / 12;
+        fprintf(q10, "The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]);
+        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
+
     }
-    fclose(q6);
+    fclose(q10);
+
+
+
+
+    // FILE *q6 = fopen("q6.txt", "w");
+    // YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
+    // for (int i = 10; i < YEARROWS; i++)
+    // {
+    //     fprintf(q6, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
+    // }
+    // fclose(q6);
 }
 
 void q7()
@@ -391,63 +411,7 @@ void q7()
     fclose(century19th);
     fclose(century20th);
 }
-void q8() // Write to GNUPlot data file and graph
-{
-    FILE *q8 = fopen("q8.txt", "w");
-    int counter = 0;
 
-    // for (int i = 0; i < ROWS; i++) // determining land max and min temps
-    // {
-    //     LandMaxTemp[i] = LandAvrgTemp[i] + LandAvrgTempUncertainty[i];
-    //     LandMinTemp[i] = LandAvrgTemp[i] - LandAvrgTempUncertainty[i];
-    // }
-
-    // FIX YEAR INT SO THAT IT TAKES MORE THAN I - 120 (has to start at 120)
-
-    // this question can only be called if the other question is called
-
-    double YearlyLandUncertainty[ROWS];
-    double yearlylanduncertaintyaverage = 0;
-    double YearlyLandMaxTemp[ROWS];
-    double YearlyLandMinTemp[ROWS];
-
-    double realYearlyLandAvrgTemp[ROWS];
-    double yearlylandaveragetemp = 0;
-
-    for (int i = 0; i < ROWS; i++)
-    {
-        yearlylanduncertaintyaverage += LandAvrgTempUncertainty[i];
-        yearlylandaveragetemp += LandAvrgTemp[i];
-
-        counter++;
-        if (counter == 12)
-        {
-            realYearlyLandAvrgTemp[i] = yearlylandaveragetemp / 12;
-            YearlyLandUncertainty[i] = yearlylanduncertaintyaverage / 12;
-
-            YearlyLandMaxTemp[i] = realYearlyLandAvrgTemp[i] + YearlyLandUncertainty[i];
-            YearlyLandMinTemp[i] = realYearlyLandAvrgTemp[i] - YearlyLandUncertainty[i];
-
-            if (i >= 1200)
-            {
-                fprintf(q8, "%d\t%lf\t%lf\t%lf\n", YearInt[i], realYearlyLandAvrgTemp[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
-            }
-
-            yearlylandaveragetemp = 0;
-            yearlylanduncertaintyaverage = 0;
-            counter = 0;
-            // printf("%lf\t%lf\t%lf\n", YearlyLandUncertainty[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
-        }
-    }
-
-    // for (int i = 1200; i < ROWS; i += 12)
-    // {
-    //     fprintf(q8, "%d\t%lf\t%lf\t%lf\n", YearInt[i], YearlyLandAvrgTemp[90 + j], YearlyLandMaxTemp[0], YearlyLandMinTemp[0]); // index at 90 represents the year 1850, adding j moves to the next year's average temp
-    //     j++;
-    // }
-
-    fclose(q8);
-}
 void q9()
 {
     int counter = 0;
@@ -489,8 +453,9 @@ int main(void)
     //  q3();
     //  q4();
     //  q5();
-    q7();
+    // q7();
     //  q8();
+    q10();
 
     return (0);
 }
