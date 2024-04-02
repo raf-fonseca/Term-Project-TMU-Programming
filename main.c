@@ -190,20 +190,19 @@ void q2()
 void q3() // Calculate monthly averages for all years between 1900 and 2015
 {
     double monthlytotaltemp = 0;
+    int counter = 0;
     int j;
-    int counter = 1;
 
     for (int i = 0; i < 12; i++) // Outer loop iterates for each month
     {
         for (j = 1800 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
         {
             monthlytotaltemp += LandAvrgTemp[j];
-            printf("%s %lf\n", month[i], LandAvrgTemp[j]);
             counter++;
         }
         MonthlyAvrgTemp[i] = monthlytotaltemp / counter;
         printf("The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]);
-        monthlytotaltemp = 0; //  Total monthly accumulation resets after all iterations of the specific month ends
+        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
         counter = 0;
     }
 }
@@ -307,19 +306,13 @@ void q8() // Write to GNUPlot data file and graph
     YearlyAvgCalculator(LandMaxTemp, YearlyLandMaxTemp);
     YearlyAvgCalculator(LandMinTemp, YearlyLandMinTemp);
 
-    FILE *q8_LandTemp = fopen("q8_LandTemp.txt", "w");
-    FILE *q8_LandMinTemp = fopen("q8_LandMinTemp.txt", "w");
-    FILE *q8_LandMaxTemp = fopen("q8_LandMaxTemp.txt", "w");
+    FILE *q8 = fopen("q8.txt", "w");
 
     for (int i = 100; i < YEARROWS; i++)
     {
-        fprintf(q8_LandTemp, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
-        fprintf(q8_LandMinTemp, "%d %lf\n", (i + 1750), YearlyLandMinTemp[i]);
-        fprintf(q8_LandMaxTemp, "%d %lf\n", (i + 1750), YearlyLandMaxTemp[i]);
+        fprintf(q8, "%d %lf %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
     }
-    fclose(q8_LandTemp);
-    fclose(q8_LandMinTemp);
-    fclose(q8_LandMaxTemp);
+    fclose(q8);
 }
 void q9()
 {
@@ -360,6 +353,7 @@ void q10()
     double monthlytotaltemp = 0;
 
     double monthlytotaluncertainty = 0;
+    int counter = 0;
     int k; // q10 variable
     double MonthlyUncertaintyTemp[ROWS];
 
@@ -369,30 +363,27 @@ void q10()
         {
             monthlytotaltemp += LandAvrgTemp[k];
             monthlytotaluncertainty += LandAvrgTempUncertainty[k];
+            counter++;
         }
-        MonthlyAvrgTemp[i] = monthlytotaltemp / 12;
-        MonthlyUncertaintyTemp[i] = monthlytotaluncertainty / 12;
+        MonthlyAvrgTemp[i] = monthlytotaltemp / counter;
+        MonthlyUncertaintyTemp[i] = monthlytotaluncertainty / counter;
 
         fprintf(q10, "%d %lf %lf\n", i + 1, MonthlyAvrgTemp[i], MonthlyUncertaintyTemp[i]);
         monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
-        monthlytotaluncertainty = 0;
+        counter = 0;
     }
     fclose(q10);
 }
 void q11()
 {
     double YearlyLandAndOceanAvrgTemp[YEARROWS];
-    FILE *q11_LandAvgTemp = fopen("q11_LandAvgTemp.txt", "w");
-    FILE *q11_LandAndOceanAvgTemp = fopen("q11_LandAndOceanAvgTemp.txt", "w");
+    FILE *q11 = fopen("q11.txt", "w");
     YearlyAvgCalculator(LandAndOceanAvrgTemp, YearlyLandAndOceanAvrgTemp);
     for (int i = 100; i < YEARROWS; i++)
     {
-        fprintf(q11_LandAvgTemp, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
-        fprintf(q11_LandAndOceanAvgTemp, "%d %lf\n", (i + 1750), YearlyLandAndOceanAvrgTemp[i]);
+        fprintf(q11, "%d %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandAndOceanAvrgTemp[i]);
     }
-
-    fclose(q11_LandAvgTemp);
-    fclose(q11_LandAndOceanAvgTemp);
+    fclose(q11);
 }
 
 int main(void)
@@ -401,7 +392,7 @@ int main(void)
     YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
     // q1();
     // q2();
-    q3();
+    // q3();
     // q4();
     // q5();
     // q7();

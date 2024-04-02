@@ -11,7 +11,7 @@ set yrange [0:25]
 
 
 set xrange [0:6]
-set xtics 1
+set xtics 1f
 
 
 plot 'q10.txt' using 1:2 \
