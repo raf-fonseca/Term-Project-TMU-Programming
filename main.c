@@ -138,6 +138,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     double yearlytotalmax = 0;          // q8 variable
     double yearlytotalmin = 0;          // q8 variable
     double yearlytotallandandocean = 0; // q8 variable
+    double yearlytotaluncertainty = 0;  // q10 variable
 
     int j = 0; // j is the tracker variable for each years[]'s element
     int k = 0; // k is the tracker variable for each years[]'s element
@@ -148,6 +149,8 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
 
     double YearlyLandandOcean[ROWS];
 
+    double YearlyUncertainty[ROWS];
+
     FILE *q6 = fopen("q6.txt", "w");
     FILE *q8 = fopen("q8.txt", "w");
     FILE *q11 = fopen("q11.txt", "w");
@@ -156,6 +159,8 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     FILE *century20th = fopen("century20th.txt", "w");
 
     for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
+    // explanation: take 0 to be the start of 1750, so indexes 0 - 11 makes 1 year, and multipy that by 12 to
+    // get 120, so the index start of the next year is 120
     {
         yearlytotaltemp += LandAvrgTemp[i];
         counter++;
@@ -293,13 +298,20 @@ void q2()
 
 void q3() // Calculate monthly averages for all years between 1900 and 2015
 {
+    FILE *q10 = fopen("q10.txt", "w");
+
     double monthlytotaltemp = 0;
     int counter = 0;
     int j;
 
+    double monthlytotaluncertainty = 0;
+    int bounter = 0;
+    int k; // q10 variable
+    double MonthlyUncertaintyTemp[ROWS];
+
     for (int i = 0; i < 12; i++) // Outer loop iterates for each month
     {
-        for (j = 1680 + i; j < ROWS; j += 12) // Index 1680 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
+        for (j = 1800 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
         {
             monthlytotaltemp += LandAvrgTemp[j];
             counter++;
@@ -309,6 +321,23 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
         monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
         counter = 0;
     }
+
+    for (int i = 0; i < 12; i++) // Outer loop iterates for each month
+    {
+        for (k = 3000 + i; k < ROWS; k += 12) // Index 3000 starts at the beginning of year 2000 plus the current month, inner loop assigns value to each month element
+        {
+            monthlytotaltemp += LandAvrgTemp[k];
+            monthlytotaluncertainty += LandAvrgTempUncertainty[k];
+            bounter++;
+        }
+        MonthlyAvrgTemp[i] = monthlytotaltemp / bounter;
+        MonthlyUncertaintyTemp[i] = monthlytotaluncertainty / bounter;
+
+        fprintf(q10, "%d %lf %lf\n", i + 1, MonthlyAvrgTemp[i], MonthlyUncertaintyTemp[i]);
+        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
+        bounter = 0;
+    }
+    fclose(q10);
 }
 
 // What was the hottest month recorded and what was the coldest month recorded? Ignore ties
