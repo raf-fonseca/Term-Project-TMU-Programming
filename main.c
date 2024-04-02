@@ -330,18 +330,10 @@ void q2()
 
 void q3() // Calculate monthly averages for all years between 1900 and 2015
 {
-    FILE *q10 = fopen("q10.txt", "w");
-
     double monthlytotaltemp = 0;
     int counter = 0;
     int j;
-
-    double monthlytotaluncertainty = 0;
-    int bounter = 0;
-    int k; // q10 variable
-    double MonthlyUncertaintyTemp[ROWS];
     
-
     for (int i = 0; i < 12; i++) // Outer loop iterates for each month
     {
         for (j = 1800 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
@@ -354,23 +346,6 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
         monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
         counter = 0;
     }
-
-    for (int i = 0; i < 12; i++) // Outer loop iterates for each month
-    {
-        for (k = 3000 + i; k < ROWS; k += 12) // Index 3000 starts at the beginning of year 2000 plus the current month, inner loop assigns value to each month element
-        {
-            monthlytotaltemp += LandAvrgTemp[k];
-            monthlytotaluncertainty += LandAvrgTempUncertainty[k];
-            bounter++;
-        }
-        MonthlyAvrgTemp[i] = monthlytotaltemp / bounter;
-        MonthlyUncertaintyTemp[i] = monthlytotaluncertainty / bounter;
-
-        fprintf(q10, "%d %lf %lf\n", i + 1, MonthlyAvrgTemp[i], MonthlyUncertaintyTemp[i]);
-        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
-        bounter = 0;
-    }
-    fclose(q10);
 }
 
 // What was the hottest month recorded and what was the coldest month recorded? Ignore ties
@@ -427,16 +402,46 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
 
+q10()
+{
+    FILE *q10 = fopen("q10.txt", "w");
+
+    double monthlytotaltemp = 0;
+
+    double monthlytotaluncertainty = 0;
+    int bounter = 0;
+    int k; // q10 variable
+    double MonthlyUncertaintyTemp[ROWS];
+
+    for (int i = 0; i < 12; i++) // Outer loop iterates for each month
+    {
+        for (k = 3000 + i; k < ROWS; k += 12) // Index 3000 starts at the beginning of year 2000 plus the current month, inner loop assigns value to each month element
+        {
+            monthlytotaltemp += LandAvrgTemp[k];
+            monthlytotaluncertainty += LandAvrgTempUncertainty[k];
+            bounter++;
+        }
+        MonthlyAvrgTemp[i] = monthlytotaltemp / bounter;
+        MonthlyUncertaintyTemp[i] = monthlytotaluncertainty / bounter;
+
+        fprintf(q10, "%d %lf %lf\n", i + 1, MonthlyAvrgTemp[i], MonthlyUncertaintyTemp[i]);
+        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
+        bounter = 0;
+    }
+    fclose(q10);    
+}
+
 int main(void)
 {
     assignArrays();
     YearlyAvgCalculator(LandAvrgTemp, ROWS);
     q1();
     // q2();
-    q3();
+    // q3();
     // q4();
     // q5();
     // q8();
+    q10();
 
     return (0);
 }
