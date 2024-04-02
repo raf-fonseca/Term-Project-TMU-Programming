@@ -130,9 +130,10 @@ void YearlyAvgCalculator(double *inputArray, double *outputArray)
 
 void q1() // Calculate yearly average for each year between 1760 and 2015
 {
-    for (int i = 10; i < YEARROWS; i++)
+
+    for (int i = 10; i < YEARROWS; i++) // Index 10 starts at the beginning of year 1760, and goes on till 2015
     {
-        printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]);
+        printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]); // Print the average temperature for each year
     }
 }
 
@@ -393,7 +394,7 @@ int main(void)
 {
     assignArrays();
     YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
-    // q1();
+    q1();
     //  q2();
     //  q3();
     //  q4();
