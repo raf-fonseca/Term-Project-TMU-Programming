@@ -377,17 +377,13 @@ void q10()
 void q11()
 {
     double YearlyLandAndOceanAvrgTemp[YEARROWS];
-    FILE *q11_LandAvgTemp = fopen("q11_LandAvgTemp.txt", "w");
-    FILE *q11_LandAndOceanAvgTemp = fopen("q11_LandAndOceanAvgTemp.txt", "w");
+    FILE *q11 = fopen("q11.txt", "w");
     YearlyAvgCalculator(LandAndOceanAvrgTemp, YearlyLandAndOceanAvrgTemp);
     for (int i = 100; i < YEARROWS; i++)
     {
-        fprintf(q11_LandAvgTemp, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
-        fprintf(q11_LandAndOceanAvgTemp, "%d %lf\n", (i + 1750), YearlyLandAndOceanAvrgTemp[i]);
+        fprintf(q11, "%d %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandAndOceanAvrgTemp[i]);
     }
-
-    fclose(q11_LandAvgTemp);
-    fclose(q11_LandAndOceanAvgTemp);
+    fclose(q11);
 }
 
 int main(void)
@@ -400,8 +396,8 @@ int main(void)
     // q4();
     // q5();
     // q7();
-    q8();
-    // q11();
+    // q8();
+    q11();
 
     return (0);
 }
