@@ -320,31 +320,67 @@ void q9()
     double totAvrgTemp = 0;
     double totMaxTemp = 0;
     double totMinTemp = 0;
+
+    double avrgTemp;
+    double maxTemp;
+    double minTemp;
+
     FILE *q9_19thcentury = fopen("q9_19thcentury.txt", "w");
     FILE *q9_20thcentury = fopen("q9_20thcentury.txt", "w");
     FILE *q9_21thcentury = fopen("q9_21thcentury.txt", "w");
 
-    for (int i = 1200; i < ROWS; i++)
-    { // starts at 1850
-
+    for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++) // 12 (months) * (1850 - 1750) years is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
+    {
         totAvrgTemp += LandAvrgTemp[i];
         totMaxTemp += LandMaxTemp[i];
         totMinTemp += LandMinTemp[i];
+        printf("%s\n", dates[i]);
         counter++;
-        strncpy(YearString, dates[i], 4);
-        YearInt[i] = atoi(YearString);
-
-        // if (counter == 600)
-        // {
-        //     fprintf(q9_19thcentury, "Average = %lf\n", totAvrgTemp / counter);
-        //     counter = 0;
-        //     else if (co)
-        //         counter = 0;
-        //     totAvrgTemp = 0;
-        //     totMaxTemp = 0;
-        //     totMinTemp = 0;
-        // }
     }
+
+    avrgTemp = totAvrgTemp / counter;
+    maxTemp = totMaxTemp / counter;
+    minTemp = totMinTemp / counter;
+    fprintf(q9_19thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    avrgTemp = 0;
+    maxTemp = 0;
+    minTemp = 0;
+
+
+    for (int i = 12 * (1901 - 1750); i < 12 * (2001 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
+    {
+        totAvrgTemp += LandAvrgTemp[i];
+        totMaxTemp += LandMaxTemp[i];
+        totMinTemp += LandMinTemp[i];
+        printf("%s\n", dates[i]);
+        counter++;
+    }
+
+    avrgTemp = totAvrgTemp / counter;
+    maxTemp = totMaxTemp / counter;
+    minTemp = totMinTemp / counter;
+    fprintf(q9_20thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    avrgTemp = 0;
+    maxTemp = 0;
+    minTemp = 0;
+
+
+    for (int i = 12 * (2001 - 1750); i < 12 * (2016 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
+    {
+        totAvrgTemp += LandAvrgTemp[i];
+        totMaxTemp += LandMaxTemp[i];
+        totMinTemp += LandMinTemp[i];
+        printf("%s\n", dates[i]);
+        counter++;
+    }
+
+    avrgTemp = totAvrgTemp / counter;
+    maxTemp = totMaxTemp / counter;
+    minTemp = totMinTemp / counter;
+    fprintf(q9_21thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    avrgTemp = 0;
+    maxTemp = 0;
+    minTemp = 0;
 }
 void q10()
 {
@@ -353,7 +389,7 @@ void q10()
     double monthlytotaltemp = 0;
 
     double monthlytotaluncertainty = 0;
-    int counter = 0;
+    int bounter = 0;
     int k; // q10 variable
     double MonthlyUncertaintyTemp[ROWS];
 
@@ -363,14 +399,14 @@ void q10()
         {
             monthlytotaltemp += LandAvrgTemp[k];
             monthlytotaluncertainty += LandAvrgTempUncertainty[k];
-            counter++;
+            bounter++;
         }
-        MonthlyAvrgTemp[i] = monthlytotaltemp / counter;
-        MonthlyUncertaintyTemp[i] = monthlytotaluncertainty / counter;
+        MonthlyAvrgTemp[i] = monthlytotaltemp / bounter;
+        MonthlyUncertaintyTemp[i] = monthlytotaluncertainty / bounter;
 
         fprintf(q10, "%d %lf %lf\n", i + 1, MonthlyAvrgTemp[i], MonthlyUncertaintyTemp[i]);
         monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
-        counter = 0;
+        bounter = 0;
     }
     fclose(q10);
 }
@@ -397,6 +433,7 @@ int main(void)
     // q5();
     // q7();
     // q8();
+    q9();
     // q10();
     // q11();
 
