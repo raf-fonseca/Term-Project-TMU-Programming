@@ -113,6 +113,7 @@ void YearlyAvgCalculator(double *inputArray, double *outputArray)
             if (noDataCounter < 12)
             {
                 outputArray[j] = yearlytotaltemp / (12 - noDataCounter);
+                noDataCounter = 0;
             }
             else
             {
