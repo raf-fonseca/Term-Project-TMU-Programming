@@ -159,6 +159,11 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     FILE *century19th = fopen("century19th.txt", "w");
     FILE *century20th = fopen("century20th.txt", "w");
 
+    YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
+    for (int i = 10; i < YEARROWS; i++)
+    {
+        printf("%lf.\n", YearlyLandAvrgTemp[i]);
+    }
     for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
     // explanation: take 0 to be the start of 1750, so indexes 0 - 11 makes 1 year, and multipy that by 12 to
     // get 120, so the index start of the next year is 120
@@ -169,7 +174,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
         {
             strncpy(years[j], dates[i], 4);
-            YearlyLandAvrgTemp[j] = yearlytotaltemp / 12;
+            // YearlyLandAvrgTemp[j] = yearlytotaltemp / 12;
             // printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
             fprintf(q6, "%s %lf\n", years[j], YearlyLandAvrgTemp[j]);
             counter = 0;
@@ -293,7 +298,7 @@ void q2()
         // Calculate the average by dividing the total by the count
         centuryAvrgTemp[i] = centuryTotals[i] / centuryCounter[i];
         // Print the calculated average temperature for the century
-        printf("The average temperature for the %s century is %.5lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
+        printf("The average temperature for the %s century is %lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
     }
 }
 
@@ -488,12 +493,7 @@ void q9()
 int main(void)
 {
     assignArrays();
-    YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
-    for (int i = 0; i < 3; i++)
-    {
-        printf("%lf\n", YearlyLandAvrgTemp[i]);
-    }
-    // q1();
+    q1();
     //  q2();
     //  q3();
     //  q4();
