@@ -93,69 +93,38 @@ void assignArrays()
     fclose(fp); // Close the file after reading all lines
 }
 
-// void YearlyAvgCalculator(double *inputArray, double *outputArray, int size)
-// {
-//     int counter = 0;
-//     double yearlytotaltemp = 0;
-//     int noData = 0;
-//     int yearIndex = 0; // Index for the year in outputArray
-//     for (int i = 0; i < size; i++)
-//     {
-//         yearlytotaltemp += inputArray[i];
-//         counter++;
-//         if (inputArray[i] == 0)
-//         {
-//             noData++;
-//         }
-//         if (counter == 12)
-//         { // End of a year
-//             if (noData < 12)
-//             {
-//                 outputArray[yearIndex] = yearlytotaltemp / (12 - noData); // Store average
-//             }
-//             else
-//             {
-//                 outputArray[yearIndex] = 0; // No data for this year
-//             }
-//             counter = 0;
-//             noData = 0;
-//             yearlytotaltemp = 0;
-//             yearIndex++;
-//             if (yearIndex >= YEARROWS)
-//             { // Prevents writing beyond the output array's bounds
-//                 break;
-//             }
-//         }
-//     }
-// }
-
-void YearlyAvgCalculator(double *array, int size)
+void YearlyAvgCalculator(double *inputArray, double *outputArray)
 {
-    int counter = 0;
     double yearlytotaltemp = 0;
-    int noData = 0;
-    for (int i = 0; i < ROWS; i++)
+    int counter = 0;
+    int j = 0;
+    int noDataCounter = 0;
+    for (int i = 0; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
     {
-        yearlytotaltemp += array[i];
+        yearlytotaltemp += inputArray[i];
         counter++;
-        if (array[i] == 0)
+
+        if (inputArray[i] == 0)
         {
-            noData++;
+            noDataCounter++;
         }
         if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
         {
-            if (noData == 12)
+            if (noDataCounter < 12)
             {
-                array[i] = 0;
+                outputArray[j] = yearlytotaltemp / (12 - noDataCounter);
+                noDataCounter = 0;
             }
             else
             {
-                array[i] = yearlytotaltemp / (12 - noData);
+                outputArray[j] = 0;
             }
-            printf("%.2lf\n", array[i]);
+            strncpy(years[j], dates[i], 4);
+
+            // printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
             counter = 0;
-            noData = 0;
             yearlytotaltemp = 0;
+            j++; // Increment the tracker variable
         }
     }
 }
@@ -170,7 +139,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
     double yearlytotalmax = 0;          // q8 variable
     double yearlytotalmin = 0;          // q8 variable
     double yearlytotallandandocean = 0; // q8 variable
-    double yearlytotaluncertainty = 0; // q10 variable 
+    double yearlytotaluncertainty = 0;  // q10 variable
 
     int j = 0; // j is the tracker variable for each years[]'s element
     int k = 0; // k is the tracker variable for each years[]'s element
@@ -183,15 +152,19 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
 
     double YearlyUncertainty[ROWS];
 
-    FILE *q6 = fopen("q6.txt", "w");
     FILE *q8 = fopen("q8.txt", "w");
     FILE *q11 = fopen("q11.txt", "w");
 
     FILE *century19th = fopen("century19th.txt", "w");
     FILE *century20th = fopen("century20th.txt", "w");
 
+    YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
+    for (int i = 10; i < YEARROWS; i++)
+    {
+        printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]);
+    }
     for (int i = 120; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
-    // explanation: take 0 to be the start of 1750, so indexes 0 - 11 makes 1 year, and multipy that by 12 to 
+    // explanation: take 0 to be the start of 1750, so indexes 0 - 11 makes 1 year, and multipy that by 12 to
     // get 120, so the index start of the next year is 120
     {
         yearlytotaltemp += LandAvrgTemp[i];
@@ -200,9 +173,9 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
         {
             strncpy(years[j], dates[i], 4);
-            YearlyLandAvrgTemp[j] = yearlytotaltemp / 12;
+            // YearlyLandAvrgTemp[j] = yearlytotaltemp / 12;
             // printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
-            fprintf(q6, "%s %lf\n", years[j], YearlyLandAvrgTemp[j]);
+
             counter = 0;
             yearlytotaltemp = 0;
 
@@ -271,7 +244,7 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         }
     }
 
-    fclose(q6);
+    // fclose(q6);
     fclose(q8);
     fclose(q11);
     fclose(century19th);
@@ -324,7 +297,7 @@ void q2()
         // Calculate the average by dividing the total by the count
         centuryAvrgTemp[i] = centuryTotals[i] / centuryCounter[i];
         // Print the calculated average temperature for the century
-        printf("The average temperature for the %s century is %.5lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
+        printf("The average temperature for the %s century is %lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
     }
 }
 
@@ -333,7 +306,7 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
     double monthlytotaltemp = 0;
     int counter = 0;
     int j;
-    
+
     for (int i = 0; i < 12; i++) // Outer loop iterates for each month
     {
         for (j = 1800 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
@@ -434,10 +407,9 @@ q10()
 int main(void)
 {
     assignArrays();
-    YearlyAvgCalculator(LandAvrgTemp, ROWS);
     q1();
     // q2();
-    // q3();
+    q3();
     // q4();
     // q5();
     // q8();
