@@ -93,69 +93,37 @@ void assignArrays()
     fclose(fp); // Close the file after reading all lines
 }
 
-// void YearlyAvgCalculator(double *inputArray, double *outputArray, int size)
-// {
-//     int counter = 0;
-//     double yearlytotaltemp = 0;
-//     int noData = 0;
-//     int yearIndex = 0; // Index for the year in outputArray
-//     for (int i = 0; i < size; i++)
-//     {
-//         yearlytotaltemp += inputArray[i];
-//         counter++;
-//         if (inputArray[i] == 0)
-//         {
-//             noData++;
-//         }
-//         if (counter == 12)
-//         { // End of a year
-//             if (noData < 12)
-//             {
-//                 outputArray[yearIndex] = yearlytotaltemp / (12 - noData); // Store average
-//             }
-//             else
-//             {
-//                 outputArray[yearIndex] = 0; // No data for this year
-//             }
-//             counter = 0;
-//             noData = 0;
-//             yearlytotaltemp = 0;
-//             yearIndex++;
-//             if (yearIndex >= YEARROWS)
-//             { // Prevents writing beyond the output array's bounds
-//                 break;
-//             }
-//         }
-//     }
-// }
-
-void YearlyAvgCalculator(double *array, int size)
+void YearlyAvgCalculator(double *inputArray, double *outputArray)
 {
-    int counter = 0;
     double yearlytotaltemp = 0;
-    int noData = 0;
-    for (int i = 0; i < ROWS; i++)
+    int counter = 0;
+    int j = 0;
+    int noDataCounter = 0;
+    for (int i = 0; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
     {
-        yearlytotaltemp += array[i];
+        yearlytotaltemp += inputArray[i];
         counter++;
-        if (array[i] == 0)
+
+        if (inputArray[i] == 0)
         {
-            noData++;
+            noDataCounter++;
         }
         if (counter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
         {
-            if (noData == 12)
+            if (noDataCounter < 12)
             {
-                array[i] = 0;
+                outputArray[j] = yearlytotaltemp / (12 - noDataCounter);
             }
             else
             {
-                array[i] = yearlytotaltemp / (12 - noData);
+                outputArray[j] = 0;
             }
-            printf("%.2lf\n", array[i]);
+            strncpy(years[j], dates[i], 4);
+
+            // printf("The average temperature for the year %s is %lf degrees Celsius.\n", years[j], YearlyLandAvrgTemp[j]);
             counter = 0;
-            noData = 0;
             yearlytotaltemp = 0;
+            j++; // Increment the tracker variable
         }
     }
 }
@@ -397,7 +365,6 @@ void q5() // Determine the hottest and coldest year between 1760 and 2015
     printf("The hottest year is %s and its average temperature is %lf degrees Celsius.\nThe coldest year is %s and its average temperature is %lf degrees Celsius.", hotyear, hottemp, coldyear, coldtemp);
 }
 
-<<<<<<< HEAD
 void q8() // Write to GNUPlot data file and graph
 {
     FILE *q8 = fopen("q8.txt", "w");
@@ -475,30 +442,33 @@ void q9()
         strncpy(YearString, dates[i], 4);
         YearInt[i] = atoi(YearString);
 
-        if (counter == 600)
-        {
-            fprintf(q9_19thcentury, "Average = %lf\n", totAvrgTemp / counter);
-            counter = 0;
-            else if (co)
-                counter = 0;
-            totAvrgTemp = 0;
-            totMaxTemp = 0;
-            totMinTemp = 0;
-        }
+        // if (counter == 600)
+        // {
+        //     fprintf(q9_19thcentury, "Average = %lf\n", totAvrgTemp / counter);
+        //     counter = 0;
+        //     else if (co)
+        //         counter = 0;
+        //     totAvrgTemp = 0;
+        //     totMaxTemp = 0;
+        //     totMinTemp = 0;
+        // }
     }
 }
-=======
->>>>>>> cec77ea0650f37a7b794a0384925a2e64ad45a72
+
 int main(void)
 {
     assignArrays();
-    YearlyAvgCalculator(LandAvrgTemp, ROWS);
-    q1();
-    // q2();
-    // q3();
-    // q4();
-    // q5();
-    // q8();
+    YearlyAvgCalculator(LandAvrgTemp, YearlyLandAvrgTemp);
+    for (int i = 0; i < 3; i++)
+    {
+        printf("%lf\n", YearlyLandAvrgTemp[i]);
+    }
+    // q1();
+    //  q2();
+    //  q3();
+    //  q4();
+    //  q5();
+    //  q8();
 
     return (0);
 }
