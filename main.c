@@ -137,7 +137,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
 
     double YearlyUncertainty[ROWS];
 
-    FILE *q8 = fopen("q8.txt", "w");
     FILE *q11 = fopen("q11.txt", "w");
 
     for (int i = 10; i < YEARROWS; i++)
@@ -147,29 +146,28 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
 
     // start of q11
 
-    for (int i = 1200; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
-    {
-        yearlytotaltemp += LandAvrgTemp[i];
-        yearlytotallandandocean += LandAndOceanAvrgTemp[i];
-        lounter++;
+    // for (int i = 1200; i < ROWS; i++) // Index 120 starts at the beginning of year 1760
+    // {
+    //     yearlytotaltemp += LandAvrgTemp[i];
+    //     yearlytotallandandocean += LandAndOceanAvrgTemp[i];
+    //     lounter++;
 
-        if (lounter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
-        {
-            strncpy(years[l], dates[i], 4);
-            YearlyLandAvrgTemp[l] = yearlytotaltemp / 12;
-            YearlyLandandOcean[l] = yearlytotallandandocean / 12;
+    //     if (lounter == 12) // Assigns an average yearly temperature and resets the counter after every 12 months
+    //     {
+    //         strncpy(years[l], dates[i], 4);
+    //         YearlyLandAvrgTemp[l] = yearlytotaltemp / 12;
+    //         YearlyLandandOcean[l] = yearlytotallandandocean / 12;
 
-            fprintf(q11, "%s %lf %lf\n", years[l], YearlyLandAvrgTemp[l], YearlyLandandOcean[l]);
-            lounter = 0;
-            yearlytotaltemp = 0;
-            yearlytotallandandocean = 0;
+    //         fprintf(q11, "%s %lf %lf\n", years[l], YearlyLandAvrgTemp[l], YearlyLandandOcean[l]);
+    //         lounter = 0;
+    //         yearlytotaltemp = 0;
+    //         yearlytotallandandocean = 0;
 
-            l++; // Increment the tracker variable
-        }
-    }
+    //         l++; // Increment the tracker variable
+    //     }
+    // }
 
-    fclose(q8);
-    fclose(q11);
+    // fclose(q11);
 }
 
 // Calculate the average land temperature for the different centuries
@@ -409,6 +407,22 @@ void q10()
     }
     fclose(q10);
 }
+void q11()
+{
+    double YearlyLandAndOceanAvrgTemp[YEARROWS];
+    FILE *q11_LandAvgTemp = fopen("q11_LandAvgTemp.txt", "w");
+    FILE *q11_LandAndOceanAvgTemp = fopen("q11_LandAndOceanAvgTemp.txt", "w");
+    YearlyAvgCalculator(LandAndOceanAvrgTemp, YearlyLandAndOceanAvrgTemp);
+    for (int i = 100; i < YEARROWS; i++)
+    {
+        fprintf(q11_LandAvgTemp, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
+        fprintf(q11_LandAndOceanAvgTemp, "%d %lf\n", (i + 1750), YearlyLandAndOceanAvrgTemp[i]);
+    }
+
+    fclose(q11_LandAvgTemp);
+    fclose(q11_LandAndOceanAvgTemp);
+}
+
 int main(void)
 {
     assignArrays();
@@ -420,6 +434,7 @@ int main(void)
     //  q5();
     // q7();
     // q8();
+    // q11();
 
     return (0);
 }
