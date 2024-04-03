@@ -328,6 +328,7 @@ void q9()
     FILE *q9_19thcentury = fopen("q9_19thcentury.txt", "w");
     FILE *q9_20thcentury = fopen("q9_20thcentury.txt", "w");
     FILE *q9_21thcentury = fopen("q9_21thcentury.txt", "w");
+    FILE *q9 = fopen("q9.txt", "w");
 
     for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++) // 12 (months) * (difference in years) = index
     {
@@ -342,7 +343,7 @@ void q9()
     maxTemp = totMaxTemp / counter;
     minTemp = totMinTemp / counter;
     printf("%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
-    fprintf(q9_19thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    fprintf(q9, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
     avrgTemp = 0;
     maxTemp = 0;
     minTemp = 0;
@@ -361,7 +362,7 @@ void q9()
     maxTemp = totMaxTemp / counter;
     minTemp = totMinTemp / counter;
     printf("%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
-    fprintf(q9_20thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    fprintf(q9, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
     avrgTemp = 0;
     maxTemp = 0;
     minTemp = 0;
@@ -380,10 +381,12 @@ void q9()
     maxTemp = totMaxTemp / counter;
     minTemp = totMinTemp / counter;
     printf("%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
-    fprintf(q9_21thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    fprintf(q9, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
     avrgTemp = 0;
     maxTemp = 0;
     minTemp = 0;
+
+    fclose(q9);
 }
 
 void q10()
@@ -429,8 +432,8 @@ int main(void)
     // q5();
     // q7();
     // q8();
-    // q9();
-    q10();
+    q9();
+    // q10();
     // q11();
 
     return (0);
