@@ -189,20 +189,20 @@ void q2()
 
 void q3() // Calculate monthly averages for all years between 1900 and 2015
 {
-    double monthlytotaltemp = 0;
-    int counter = 0;
+    double monthlytotaltemp = 0; // Variable to store the total temperature for each month
+    int counter = 0;             // Counter to keep track of the number of records for each month
     int j;
 
     for (int i = 0; i < 12; i++) // Outer loop iterates for each month
     {
         for (j = 1800 + i; j < ROWS; j += 12) // Index 1800 starts at the beginning of year 1900 plus the current month, inner loop assigns value to each month element
         {
-            monthlytotaltemp += LandAvrgTemp[j];
-            counter++;
+            monthlytotaltemp += LandAvrgTemp[j]; // Accumulates the total temperature for the specific month
+            counter++;                           // Increments the counter for the specific month
         }
-        MonthlyAvrgTemp[i] = monthlytotaltemp / counter;
-        printf("The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]);
-        monthlytotaltemp = 0; // Counter and total monthly accumulation resets after all iterations of the specific month ends
+        MonthlyAvrgTemp[i] = monthlytotaltemp / counter;                                                  // Assigns the average temperature to the respective month
+        printf("The average temperature for %s is %lf degrees Celsius.\n", month[i], MonthlyAvrgTemp[i]); // Print the average temperature for each month
+        monthlytotaltemp = 0;                                                                             // Counter and total monthly accumulation resets after all iterations of the specific month ends
         counter = 0;
     }
 }
@@ -269,21 +269,21 @@ void q5() // Determine the hottest and coldest year
 
 void q6()
 {
-    FILE *q6 = fopen("q6.txt", "w");
+    FILE *q6 = fopen("q6.txt", "w"); // Open the file for writing
 
-    for (int i = 10; i < YEARROWS; i++)
+    for (int i = 10; i < YEARROWS; i++) // Index 10 starts at the beginning of year 1760
     {
-        fprintf(q6, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]);
+        fprintf(q6, "%d %lf\n", (i + 1750), YearlyLandAvrgTemp[i]); // Print x and y values for the yearly temperature
     }
-    fclose(q6);
+    fclose(q6); // Close the file
 }
 
 void q7()
 {
 
-    FILE *century19th = fopen("century19th.txt", "w");
+    FILE *century19th = fopen("century19th.txt", "w"); // Open the file for writing
     FILE *century20th = fopen("century20th.txt", "w");
-    for (int i = 50; i < YEARROWS; i++)
+    for (int i = 50; i < YEARROWS; i++) // Index 50 starts at the beginning of year 1800
     {
         // Assigns the average yearly temperature to the respective century file
         if (i >= 50 && i <= 149)
@@ -296,23 +296,23 @@ void q7()
         }
     }
 
-    fclose(century19th);
+    fclose(century19th); // Close the file
     fclose(century20th);
 }
 void q8() // Write to GNUPlot data file and graph
 {
-    double YearlyLandMaxTemp[YEARROWS];
-    double YearlyLandMinTemp[YEARROWS];
-    YearlyAvgCalculator(LandMaxTemp, YearlyLandMaxTemp);
-    YearlyAvgCalculator(LandMinTemp, YearlyLandMinTemp);
+    double YearlyLandMaxTemp[YEARROWS];                  // Array to store the yearly maximum temperatures
+    double YearlyLandMinTemp[YEARROWS];                  // Array to store the yearly minimum temperatures
+    YearlyAvgCalculator(LandMaxTemp, YearlyLandMaxTemp); // Calculate the yearly maximum temperatures
+    YearlyAvgCalculator(LandMinTemp, YearlyLandMinTemp); // Calculate the yearly minimum temperatures
 
-    FILE *q8 = fopen("q8.txt", "w");
+    FILE *q8 = fopen("q8.txt", "w"); // Open the file for writing
 
-    for (int i = 100; i < YEARROWS; i++)
+    for (int i = 100; i < YEARROWS; i++) // Index 100 starts at the beginning of year 1850
     {
-        fprintf(q8, "%d %lf %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]);
+        fprintf(q8, "%d %lf %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandMaxTemp[i], YearlyLandMinTemp[i]); // Print x and y values for the yearly temperature, maximum, and minimum
     }
-    fclose(q8);
+    fclose(q8); // Close the file
 }
 void q9()
 {
@@ -349,7 +349,7 @@ void q9()
     minTemp = 0;
 
 
-    for (int i = 12 * (1901 - 1750); i < 12 * (2001 - 1750); i++) // 12 (months) * (difference in years) = index value
+    for (int i = 12 * (1901 - 1750); i < 12 * (2001 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
     {
         totAvrgTemp += LandAvrgTemp[i];
         totMaxTemp += LandMaxTemp[i];
@@ -368,7 +368,7 @@ void q9()
     minTemp = 0;
 
 
-    for (int i = 12 * (2001 - 1750); i < 12 * (2016 - 1750); i++) // 12 (months) * (difference in years) = index value
+    for (int i = 12 * (2001 - 1750); i < 12 * (2016 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
     {
         totAvrgTemp += LandAvrgTemp[i];
         totMaxTemp += LandMaxTemp[i];
@@ -411,14 +411,14 @@ void q10()
 
 void q11()
 {
-    double YearlyLandAndOceanAvrgTemp[YEARROWS];
-    FILE *q11 = fopen("q11.txt", "w");
-    YearlyAvgCalculator(LandAndOceanAvrgTemp, YearlyLandAndOceanAvrgTemp);
-    for (int i = 100; i < YEARROWS; i++)
+    double YearlyLandAndOceanAvrgTemp[YEARROWS];                           // Array to store the yearly average land and ocean temperatures
+    FILE *q11 = fopen("q11.txt", "w");                                     // Open the file for writing
+    YearlyAvgCalculator(LandAndOceanAvrgTemp, YearlyLandAndOceanAvrgTemp); // Calculate the yearly average land and ocean temperatures
+    for (int i = 100; i < YEARROWS; i++)                                   // Index 100 starts at the beginning of year 1850
     {
-        fprintf(q11, "%d %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandAndOceanAvrgTemp[i]);
+        fprintf(q11, "%d %lf %lf\n", (i + 1750), YearlyLandAvrgTemp[i], YearlyLandAndOceanAvrgTemp[i]); // Print x and y values for the yearly temperature and average land and ocean temperature
     }
-    fclose(q11);
+    fclose(q11); // Close the file
 }
 
 int main(void)
@@ -430,9 +430,10 @@ int main(void)
     // q3();
     // q4();
     // q5();
+    // q6();
     // q7();
     // q8();
-    q9();
+    // q9();
     // q10();
     // q11();
 
