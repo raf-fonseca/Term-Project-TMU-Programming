@@ -10,7 +10,7 @@ set key top right
 set yrange [0:25]
 
 
-set xrange [0:200]
+set xrange [0:15]
 set xtics 10
 
 

@@ -1,4 +1,4 @@
-set multiplot layout 1,3 title "Average, Maximum, and Minimum Temperatures each Century"
+set multiplot layout 1,3 title "Average, Maximum, and Minimum Temperatures For Each Century"
 set xtics nomirror
 set ytics nomirror
 
