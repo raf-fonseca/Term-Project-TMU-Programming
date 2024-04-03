@@ -325,9 +325,6 @@ void q9()
     double maxTemp;
     double minTemp;
 
-    FILE *q9_19thcentury = fopen("q9_19thcentury.txt", "w");
-    FILE *q9_20thcentury = fopen("q9_20thcentury.txt", "w");
-    FILE *q9_21thcentury = fopen("q9_21thcentury.txt", "w");
     FILE *q9 = fopen("q9.txt", "w");
 
     for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++) // 12 (months) * (difference in years) = index
