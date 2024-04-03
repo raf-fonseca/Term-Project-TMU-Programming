@@ -325,12 +325,16 @@ void q9()
     double maxTemp;  // Variable to store the max temperature for each century
     double minTemp;  // Variable to store the min temperature for each century
 
+<<<<<<< HEAD
     // Open the files for writing
     FILE *q9_19thcentury = fopen("q9_19thcentury.txt", "w");
     FILE *q9_20thcentury = fopen("q9_20thcentury.txt", "w");
     FILE *q9_21thcentury = fopen("q9_21thcentury.txt", "w");
+=======
+    FILE *q9 = fopen("q9.txt", "w");
+>>>>>>> 97250170de9374708dea1cf11ffe87060e56cfcd
 
-    for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++) // 12 (months) * (1850 - 1750) years is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
+    for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++) // 12 (months) * (difference in years) = index
     {
         totAvrgTemp += LandAvrgTemp[i]; // Accumulates the total temperature for the specific century
         totMaxTemp += LandMaxTemp[i];   // Accumulates the total max temperature for the specific century
@@ -338,16 +342,27 @@ void q9()
         counter++;
     }
 
+<<<<<<< HEAD
     avrgTemp = totAvrgTemp / counter;                                     // Calculate the average temperature for the 19th century
     maxTemp = totMaxTemp / counter;                                       // Calculate the average max temperature for the 19th century
     minTemp = totMinTemp / counter;                                       // Calculate the average min temperature for the 19th century
     fprintf(q9_19thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp); // Print the average temperature, max temperature, and min temperature for the 19th century
     // Reset counters
+=======
+    avrgTemp = totAvrgTemp / counter;
+    maxTemp = totMaxTemp / counter;
+    minTemp = totMinTemp / counter;
+    printf("%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    fprintf(q9, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+>>>>>>> 97250170de9374708dea1cf11ffe87060e56cfcd
     avrgTemp = 0;
     maxTemp = 0;
     minTemp = 0;
 
+<<<<<<< HEAD
     // Repeat the same proccess above but for the upper centuries
+=======
+>>>>>>> 97250170de9374708dea1cf11ffe87060e56cfcd
 
     for (int i = 12 * (1901 - 1750); i < 12 * (2001 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
     {
@@ -360,45 +375,67 @@ void q9()
     avrgTemp = totAvrgTemp / counter;
     maxTemp = totMaxTemp / counter;
     minTemp = totMinTemp / counter;
-    fprintf(q9_20thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    printf("%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    fprintf(q9, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
     avrgTemp = 0;
     maxTemp = 0;
     minTemp = 0;
+
 
     for (int i = 12 * (2001 - 1750); i < 12 * (2016 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
     {
         totAvrgTemp += LandAvrgTemp[i];
         totMaxTemp += LandMaxTemp[i];
         totMinTemp += LandMinTemp[i];
+<<<<<<< HEAD
+=======
+        printf("%s %lf\n", dates[i], LandAvrgTemp[i]);
+>>>>>>> 97250170de9374708dea1cf11ffe87060e56cfcd
         counter++;
     }
 
     avrgTemp = totAvrgTemp / counter;
     maxTemp = totMaxTemp / counter;
     minTemp = totMinTemp / counter;
-    fprintf(q9_21thcentury, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    printf("%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
+    fprintf(q9, "%lf %lf %lf\n", avrgTemp, maxTemp, minTemp);
     avrgTemp = 0;
     maxTemp = 0;
     minTemp = 0;
+<<<<<<< HEAD
     // Close the files
     fclose(q9_19thcentury);
     fclose(q9_20thcentury);
     fclose(q9_21thcentury);
 }
 // Calculate the average temperature and uncertainty for each month (2000 - 2015)
+=======
+
+    fclose(q9);
+}
+
+>>>>>>> 97250170de9374708dea1cf11ffe87060e56cfcd
 void q10()
 {
     FILE *q10 = fopen("q10.txt", "w");
 
     double monthlytotaltemp = 0; // Variable to store the total temperature for each month
 
+<<<<<<< HEAD
     double monthlytotaluncertainty = 0;  // Variable to store the total uncertainty for each month
     int bounter = 0;                     // Counter to keep track of the number of records for each month
     int k;                               // Variable to store the index of the month
     double MonthlyUncertaintyTemp[ROWS]; // Array to store the monthly uncertainty
+=======
+    double monthlytotaluncertainty = 0;
+    int bounter = 0;
+    int k = 0; // q10 variable
+    double MonthlyUncertaintyTemp[ROWS];
+>>>>>>> 97250170de9374708dea1cf11ffe87060e56cfcd
 
-    for (int i = 0; i < 12; i++) // Outer loop iterates for each month
+    for (int i = 3000; i < ROWS; i++)
     {
+<<<<<<< HEAD
         for (k = 3000 + i; k < ROWS; k += 12) // Index 3000 starts at the beginning of year 2000 plus the current month, inner loop assigns value to each month element
         {
             monthlytotaltemp += LandAvrgTemp[k];                   // Accumulates the total temperature for the specific month
@@ -415,6 +452,15 @@ void q10()
     fclose(q10);
 }
 // Calculate the yearly average land and ocean temperatures for each year between 1850 and 2015
+=======
+        
+        fprintf(q10, "%d %lf %lf\n", 1 + bounter, LandAvrgTemp[i], LandAvrgTempUncertainty[i]);
+        bounter++;
+    }
+    fclose(q10);
+}
+
+>>>>>>> 97250170de9374708dea1cf11ffe87060e56cfcd
 void q11()
 {
     double YearlyLandAndOceanAvrgTemp[YEARROWS];                           // Array to store the yearly average land and ocean temperatures
