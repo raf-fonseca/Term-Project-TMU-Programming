@@ -92,7 +92,7 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
-
+// Calculate the yearly average of an array
 void YearlyAvgCalculator(double *inputArray, double *outputArray)
 {
     double yearlytotaltemp = 0;
@@ -127,8 +127,8 @@ void YearlyAvgCalculator(double *inputArray, double *outputArray)
         }
     }
 }
-
-void q1() // Calculate yearly average for each year between 1760 and 2015
+// Calculate yearly average for each year between 1760 and 2015
+void q1()
 {
 
     for (int i = 10; i < YEARROWS; i++) // Index 10 starts at the beginning of year 1760, and goes on till 2015
@@ -136,7 +136,6 @@ void q1() // Calculate yearly average for each year between 1760 and 2015
         printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]); // Print the average temperature for each year
     }
 }
-
 // Calculate the average land temperature for the different centuries
 void q2()
 {
@@ -186,8 +185,8 @@ void q2()
         printf("The average temperature for the %s century is %lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
     }
 }
-
-void q3() // Calculate monthly averages for all years between 1900 and 2015
+// Calculate monthly averages for all years between 1900 and 2015
+void q3()
 {
     double monthlytotaltemp = 0; // Variable to store the total temperature for each month
     int counter = 0;             // Counter to keep track of the number of records for each month
@@ -206,8 +205,7 @@ void q3() // Calculate monthly averages for all years between 1900 and 2015
         counter = 0;
     }
 }
-
-// What was the hottest month recorded and what was the coldest month recorded? Ignore ties
+// Determine the hottest and coldest month
 void q4()
 {
     // Initialize the coldest and hottest temperatures to the first temperature in the dataset
@@ -238,8 +236,8 @@ void q4()
     printf("The hottest month recorded is %s and its temperature is %.2lf˚\n", hottestDate, hottest);
     printf("The coldest month recorded is %s and its temperature is %.2lf˚\n", coldestDate, coldest);
 }
-
-void q5() // Determine the hottest and coldest year
+// Determine the hottest and coldest year
+void q5()
 {
     // Initialize the coldest and hottest temperatures to the first year's average temperature
     double coldtemp = YearlyLandAvrgTemp[0];
@@ -266,7 +264,7 @@ void q5() // Determine the hottest and coldest year
     // Print the hottest and coldest years with their corresponding average temperatures
     printf("The hottest year is %d and its average temperature is %lf degrees Celsius.\nThe coldest year is %d and its average temperature is %lf degrees Celsius.", hotYear, hottemp, coldYear, coldtemp);
 }
-
+// Graph (line plot) of the yearly temperatures for the years 1760 to 2015
 void q6()
 {
     FILE *q6 = fopen("q6.txt", "w"); // Open the file for writing
@@ -277,7 +275,7 @@ void q6()
     }
     fclose(q6); // Close the file
 }
-
+// Separate the yearly temperatures into two files for the 19th and 20th centuries
 void q7()
 {
 
@@ -299,7 +297,8 @@ void q7()
     fclose(century19th); // Close the file
     fclose(century20th);
 }
-void q8() // Write to GNUPlot data file and graph
+// Average land temperature, land max temperature, land min temperature for each year between 1850 and 2015
+void q8()
 {
     double YearlyLandMaxTemp[YEARROWS];                  // Array to store the yearly maximum temperatures
     double YearlyLandMinTemp[YEARROWS];                  // Array to store the yearly minimum temperatures
@@ -314,25 +313,25 @@ void q8() // Write to GNUPlot data file and graph
     }
     fclose(q8); // Close the file
 }
+// Show the average, low and high temperatures for each of the 19th (after 1850), 20th and 21st centuries.
 void q9()
 {
-    int counter = 0;
-    double totAvrgTemp = 0;
-    double totMaxTemp = 0;
-    double totMinTemp = 0;
+    int counter = 0;        // Counter to keep track of the number of records for each century
+    double totAvrgTemp = 0; // Variable to store the total avrg temperature for each century
+    double totMaxTemp = 0;  // Variable to store the total max temperature for each century
+    double totMinTemp = 0;  // Variable to store the total min temperature for each century
 
-    double avrgTemp;
-    double maxTemp;
-    double minTemp;
+    double avrgTemp; // Variable to store the avrg temperature for each century
+    double maxTemp;  // Variable to store the max temperature for each century
+    double minTemp;  // Variable to store the min temperature for each century
 
     FILE *q9 = fopen("q9.txt", "w");
 
     for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++)
     {
-        totAvrgTemp += LandAvrgTemp[i];
-        totMaxTemp += LandMaxTemp[i];
-        totMinTemp += LandMinTemp[i];
-        printf("%s\n", dates[i]);
+        totAvrgTemp += LandAvrgTemp[i]; // Accumulates the total temperature for the specific century
+        totMaxTemp += LandMaxTemp[i];   // Accumulates the total max temperature for the specific century
+        totMinTemp += LandMinTemp[i];   // Accumulates the total min temperature for the specific century
         counter++;
     }
 
@@ -346,12 +345,11 @@ void q9()
     minTemp = 0;
 
 
-    for (int i = 12 * (1901 - 1750); i < 12 * (2001 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
+    for (int i = 12 * (1901 - 1750); i < 12 * (2001 - 1750); i++) // 1812 is the index of the year 1901
     {
         totAvrgTemp += LandAvrgTemp[i];
         totMaxTemp += LandMaxTemp[i];
         totMinTemp += LandMinTemp[i];
-        printf("%s\n", dates[i]);
         counter++;
     }
 
@@ -365,7 +363,7 @@ void q9()
     minTemp = 0;
 
 
-    for (int i = 12 * (2001 - 1750); i < 12 * (2016 - 1750); i++) // 1200 is the index of the year 1850, multiple 12 by the number of years between 1750 and 1901
+    for (int i = 12 * (2001 - 1750); i < 12 * (2016 - 1750); i++) // 3012 is the index of the year 2001
     {
         totAvrgTemp += LandAvrgTemp[i];
         totMaxTemp += LandMaxTemp[i];
@@ -390,7 +388,7 @@ void q10()
 {
     FILE *q10 = fopen("q10.txt", "w");
 
-    double monthlytotaltemp = 0;
+    double monthlytotaltemp = 0; // Variable to store the total temperature for each month
 
     double monthlytotaluncertainty = 0;
     int bounter = 0;
