@@ -4,7 +4,7 @@
 
 #define ROWS 3192
 #define COLS 11
-#define YEARROWS 266 // (ROWS - index of year 1760) / 12 months (index of 1760 is 121)
+#define YEARROWS 266 // (ROWS - index of year 1760) / 12 months (index of 1760 is 120)
 
 // Declare the arrays to store the data
 char dates[ROWS][COLS];
@@ -17,7 +17,7 @@ double LandMinTemp[ROWS];
 double LandMinTempUncertainty[ROWS];
 double LandAndOceanAvrgTemp[ROWS];
 double LandAndOceanAvrgTempUncertainty[ROWS];
-double YearlyLandAvrgTemp[YEARROWS]; // starts at year 1760
+double YearlyLandAvrgTemp[YEARROWS]; // Starts at year 1760
 double MonthlyAvrgTemp[12];
 char month[12][10] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 char YearString[ROWS];
@@ -327,7 +327,7 @@ void q9()
 
     FILE *q9 = fopen("q9.txt", "w");
 
-    for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++) // 12 (months) * (difference in years) = index
+    for (int i = 12 * (1850 - 1750); i < 12 * (1901 - 1750); i++)
     {
         totAvrgTemp += LandAvrgTemp[i];
         totMaxTemp += LandMaxTemp[i];
@@ -394,7 +394,7 @@ void q10()
 
     double monthlytotaluncertainty = 0;
     int bounter = 0;
-    int k = 0; // q10 variable
+    int k = 0; // Q10 variable
     double MonthlyUncertaintyTemp[ROWS];
 
     for (int i = 3000; i < ROWS; i++)
