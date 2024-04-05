@@ -1,1 +1,4 @@
-# Term-Project-TMU-Programming
+# Weather Analysis
+- extracts land and ocean average temperatures from a data sheet
+- analyzes several test cases and manipulates data accordingly
+- graphs trends using gnuplot
