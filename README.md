@@ -26,5 +26,7 @@ This term project requires the extraction and computation of temperature records
 
 11. Generate a GNUPlot data file and use GNUPlot to do a plot similar to what you did in question 6 (LandAverageTemperature) but only for the years 1850 to 2015 and add the data for the LandAndOceanAverageTemperatures column. Have the two lines on the same figure. Label the axes clearly and add a title and legend to your graph.
 
+**Lab Report**
+https://docs.google.com/document/d/1aKHns8PM1yYyAAdBOHDSOagvTTVQ4T87OHZX0KECNzA/edit?usp=sharing
 
 
