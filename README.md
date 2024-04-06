@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Term-Project-TMU-Programming
 
 **Details**
@@ -32,3 +33,12 @@ This term project requires the extraction and computation of temperature records
 https://docs.google.com/document/d/1aKHns8PM1yYyAAdBOHDSOagvTTVQ4T87OHZX0KECNzA/edit?usp=sharing
 
 
+=======
+# weather analysis
+tech stack: c and gnuplot
+- extracts land and ocean average temperatures from a data sheet
+- analyzes several test cases and manipulates data accordingly
+- graphs trends using gnuplot
+
+computer programming fundamentals - cps188
+>>>>>>> 53d7c00f985b29f837eefe54cd75a40339497db7
