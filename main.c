@@ -92,6 +92,7 @@ void assignArrays()
 
     fclose(fp); // Close the file after reading all lines
 }
+
 // Calculate the yearly average of an array
 void YearlyAvgCalculator(double *inputArray, double *outputArray)
 {
@@ -127,6 +128,7 @@ void YearlyAvgCalculator(double *inputArray, double *outputArray)
         }
     }
 }
+
 // Calculate yearly average for each year between 1760 and 2015
 void q1()
 {
@@ -136,6 +138,7 @@ void q1()
         printf("The average temperature for the year %d is %lf degrees Celsius.\n", (i + 1750), YearlyLandAvrgTemp[i]); // Print the average temperature for each year
     }
 }
+
 // Calculate the average land temperature for the different centuries
 void q2()
 {
@@ -185,6 +188,7 @@ void q2()
         printf("The average temperature for the %s century is %lf degrees Celsius.\n", century[i], centuryAvrgTemp[i]);
     }
 }
+
 // Calculate monthly averages for all years between 1900 and 2015
 void q3()
 {
@@ -205,6 +209,7 @@ void q3()
         counter = 0;
     }
 }
+
 // Determine the hottest and coldest month
 void q4()
 {
@@ -236,6 +241,7 @@ void q4()
     printf("The hottest month recorded is %s and its temperature is %.2lf˚\n", hottestDate, hottest);
     printf("The coldest month recorded is %s and its temperature is %.2lf˚\n", coldestDate, coldest);
 }
+
 // Determine the hottest and coldest year
 void q5()
 {
@@ -264,6 +270,7 @@ void q5()
     // Print the hottest and coldest years with their corresponding average temperatures
     printf("The hottest year is %d and its average temperature is %lf degrees Celsius.\nThe coldest year is %d and its average temperature is %lf degrees Celsius.", hotYear, hottemp, coldYear, coldtemp);
 }
+
 // Graph (line plot) of the yearly temperatures for the years 1760 to 2015
 void q6()
 {
@@ -275,6 +282,7 @@ void q6()
     }
     fclose(q6); // Close the file
 }
+
 // Separate the yearly temperatures into two files for the 19th and 20th centuries
 void q7()
 {
@@ -297,6 +305,7 @@ void q7()
     fclose(century19th); // Close the file
     fclose(century20th);
 }
+
 // Average land temperature, land max temperature, land min temperature for each year between 1850 and 2015
 void q8()
 {
@@ -313,6 +322,7 @@ void q8()
     }
     fclose(q8); // Close the file
 }
+
 // Show the average, low and high temperatures for each of the 19th (after 1850), 20th and 21st centuries.
 void q9()
 {
@@ -378,6 +388,7 @@ void q9()
 
     fclose(q9);
 }
+
 // Calculate the average temperature and uncertainty for each month (2000 - 2015)
 void q10()
 {
@@ -398,6 +409,7 @@ void q10()
     }
     fclose(q10);
 }
+
 // Calculate the yearly average land and ocean temperatures for each year between 1850 and 2015
 void q11()
 {
