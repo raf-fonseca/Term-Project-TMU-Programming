@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Term-Project-TMU-Programming
 
 **Details**
